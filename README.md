@@ -49,22 +49,45 @@ The scripts assume a pre-defined folder structure exists in your computer:
 PROJECTS FOLDER - this is the main folder and will hold the automation scripts and your Deft Pascal projects. On the context of this toolchain, a project is simple a folder and the files contained in it.
 
 An example:
-<a windows folder>
-|_PROJECTS
-  |_HELLO1
-  |_DEMO
-  |_HELLO2
-  |_APROJ1
-  |_HELLO3
+<a windows folder> <br>
+|_PROJECTS <br>
+     |_HELLO1 <br>
+     |_DEMO <br>
+     |_HELLO2 <br>
+     |_APROJ1 <br>
+     |_HELLO3 <br>
  
  NOTES & LIMITATIONS: 
  - CoCo file name conventions and limitations apply here. So your folder and files must comply to the 8 characters size.
  - Folders and files must always be in uppercase.
  
+ On the PROJECTS FOLDER you will need to place following files:
+ - create_new_deft_pascal_project.bat 
+ -deft_linker_keystrokes_automation.au3
+- deft_linker_link_objects.bat
+- deft_pascal_compile_source.bat
+- deft_pascal_keystrokes_automation.au3
+- deft_pascal_run_project.bat
+- drive_0_loadm_and_exec_keystrokes_automation.au3
+- new_deft_pascal_project_disk.dsk
+- new_deft_pascal_project_objects_file.txt
+- new_deft_pascal_project_source.pas
+
+5. Using the scripts:
+
+- create_new_deft_pascal_project.bat 
+
+This script will create a brand new FOLDER and PROJECT FILES based on a name passed by parameter.
+  - CoCo file name conventions and limitations apply here.
+  - Folder and files must comply to the 8 characters size and always be in uppercase.
+  - The script does not yet check or enforce such constraints.
  
-  
-
-
+ Usage: 
+ cd <PROJECTS FOLDER>
+ .\create_new_deft_pascal_project.bat HELLO1
+ 
+This will create a new folder called HELLO1 and will place HELLO1.pas, HELLO1.prj and HELLO1.dsk files into it. The lowercase extensions are correct and will be adjusted by the scrips when needed.
+ 
 
 
 
