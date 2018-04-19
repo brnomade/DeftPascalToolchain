@@ -23,8 +23,16 @@ In general terms:
 1. Mame
 
 Make sure Mame is installed on yourmachines. A front end is not needed for this toolchain.
+
 Make sure the CoCo roms are placed in the /ROM folder under the mame folder. 
-To confirm installation is working, from a DOS prompt, go to Mame folder and simply run mame64.exe. You should get the Mame emulator native interface opening and a list containing the ROMs to choose. If you double click on the ROM (coco2b was used) and on [Start Empty] on the next screen you should get the cool radioactive green screen typical of a CoCo.
-As a final test, running following command from a DOS prompt and from the Mame folder must to runopen the emulated CoCo directly: mame64.exe coco2b
+
+To confirm installation is working, from a DOS prompt, go to Mame folder and simply run mame64.exe. 
+
+You should get the Mame emulator native interface opening and a list containing the ROMs to choose. If you double click on the ROM (coco2b was used) and on [Start Empty] on the next screen you should get the cool radioactive green screen typical of a CoCo.
+
+As a final test, run  following command from a DOS prompt and from the Mame folder: mame64.exe coco2b
+
+You should get a window with the emulated CoCo prompt.
+
 
 
