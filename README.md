@@ -147,7 +147,7 @@ Above call will copy the .pas and .prj files into the project dsk file. Will tha
 
 - deft_linker_link_objects.bat
 
-This script will trigger the linkage of the Object files defined on the Project file passed by parameter. The name must be without any extension. 
+This script will trigger the linkage of the object and library files defined on the .prj file passed by parameter. The filename must be without any extension. 
 
 This script requires the following files to be present on the same folder:
      - deft_pascal_toolchain_configuration.bat
