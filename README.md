@@ -212,7 +212,7 @@ The happy path for executing the toolchain is :
 
 7. Triggering the Toolchain from your editor of choice
 
-The ConTEXT editor integrates nicely with the provided scripts. Use the Environment Options and configure the Execute Keys to trigger each script. In my setup I have F9 - compile; F10 - Link; F11 - run.
+The ConTEXT editor integrates nicely with the provided scripts. Use the Environment Options and configure the Execute Keys to trigger each script. In my setup I have F9 - compile; F10 - Link; F11 - Run.
 
 The settings I use are:
 Execute: the full path and script name
