@@ -10,3 +10,6 @@ Requirements:
 - AutoIT v3 or higher - freeware - (to automate the keystrokes when running Deft Pascal) - https://www.autoitscript.com/site/
 - Windows (as the .bat files were written on a Windows10 machine) 
 - a source code editor (currently I am using Context v0.98.6 - freeware - www.contexteditor.org)
+- ROM files for Mame - I am currently emulating a CoCo 2B -  http://www.colorcomputerarchive.com/coco/ROMs/MESS/
+
+For convenience I have assembled a DSK containing the Deft Pascal and AGS Library in a single disk ready for use with Mame. You will find it on the repository.
