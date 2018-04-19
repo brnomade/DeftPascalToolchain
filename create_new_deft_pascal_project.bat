@@ -10,8 +10,7 @@ ECHO ------------------------
 ECHO ENVIRONMENT SETTINGS 
 ECHO ------------------------
 
-SET DEFT_PROJECTS_FOLDER=C:\Users\Andre\Downloads\TRS COLOR\DeftPascal\Test\Projects
-SET EDITOR_FOLDER=E:\Program Files (x86)\ConTEXT
+CALL "%~dp0%deft_pascal_toolchain_configuration.bat"
 
 ECHO PROJECTS FOLDER: %DEFT_PROJECTS_FOLDER%
 ECHO PROJECT FOLDER: %~1
@@ -48,5 +47,7 @@ ECHO ------------------------
 
 dir "%DEFT_PROJECTS_FOLDER%\%~1"
 
+ECHO ------------------------
+ECHO EXECUTION COMPLETED...
 ECHO ------------------------
 @ECHO ON
