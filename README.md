@@ -76,6 +76,21 @@ A WINDOWS FOLDER
 
 5. Using the scripts:
 
+- deft_pascal_toolchain_configuration.bat
+
+This script contain the definition of the needed folders and files. It needs to be adjusted to match your own folder configuration.
+
+The following variables must be declared:
+     - EDITOR_FOLDER - This is the installation folder of your source code editor
+     - EDITOR_EXECUTABLE - this is the executable of your source code. Only the file name and extension are needed.
+     - DEFT_DSK_FOLDER - this is the folder where the dsk file is located. 
+     - DEFT_DSK_FILE - this is the dsk file name and extension
+     - DEFT_PROJECTS_FOLDER - folder where your toolchain scripts are located and where all projects subfolders will be created
+     - MAME_FOLDER - This is the installation folder of Mame
+     - AUTOIT_FOLDER - This is the installation folder for the AUTOIT sofrware
+
+This script needs to be adjusted once and should only be changed if you relocate folders/files in your drive.
+
 - create_new_deft_pascal_project.bat 
 
 This script will create a brand new FOLDER and PROJECT FILES based on a name passed by parameter.
@@ -86,6 +101,7 @@ This script will create a brand new FOLDER and PROJECT FILES based on a name pas
 This script must be executed from the PROJECTS FOLDER
 
 This script requires the following files to be present on the same folder:
+     - deft_pascal_toolchain_configuration.bat
      - new_deft_pascal_project_disk.dsk
      - new_deft_pascal_project_objects_file.txt
      - new_deft_pascal_project_source.pas
@@ -104,6 +120,9 @@ Above call will create a new folder called HELLO1 and will place HELLO1.pas, HEL
 - deft_pascal_compile_source.bat
 
 This script will trigger the compilation of the SOURCE FILE identified by the name passed by parameter. The name must be without any extension. 
+
+This script requires the following files to be present on the same folder:
+     - deft_pascal_toolchain_configuration.bat
 
 This script uses following configurations:
      - DEFT_DSK_FOLDER
