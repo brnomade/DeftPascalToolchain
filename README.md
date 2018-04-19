@@ -28,7 +28,7 @@ Make sure the CoCo roms are placed in the /ROM folder under the mame folder.
 
 To confirm installation is working, from a DOS prompt, go to Mame folder and simply run mame64.exe. 
 
-You should get the Mame emulator native interface opening and a list containing the ROMs to choose. If you double click on the ROM (coco2b was used) and on [Start Empty] on the next screen you should get the cool radioactive green screen typical of a CoCo.
+You should get the Mame emulator native interface opening and a list containing the ROMs to choose. If you double click on the ROM (coco2b was used) and on "Start Empty" on the next screen you should get the cool radioactive green screen typical of a CoCo.
 
 As a final test, run  following command from a DOS prompt and from the Mame folder: mame64.exe coco2b
 
@@ -49,13 +49,13 @@ The scripts assume a pre-defined folder structure exists in your computer:
 PROJECTS FOLDER - this is the main folder and will hold the automation scripts and your Deft Pascal projects. On the context of this toolchain, a project is simple a folder and the files contained in it.
 
 An example:
-<a windows folder> <br>
-|_PROJECTS <br>
-     |_HELLO1 <br>
-     |_DEMO <br>
-     |_HELLO2 <br>
-     |_APROJ1 <br>
-     |_HELLO3 <br>
+A WINDOWS FOLDER
+-PROJECTS 
+     -HELLO1 
+     -DEMO 
+     -HELLO2 
+     -APROJ1 
+     -HELLO3 
  
  NOTES & LIMITATIONS: 
  - CoCo file name conventions and limitations apply here. So your folder and files must comply to the 8 characters size.
@@ -95,7 +95,7 @@ This script uses following configurations:
      - EDITOR_EXECUTABLE
 
 Example Usage: 
- cd <PROJECTS FOLDER>
+ cd PROJECTS FOLDER
  .\create_new_deft_pascal_project.bat HELLO1
 
 Above call will create a new folder called HELLO1 and will place HELLO1.pas, HELLO1.prj and HELLO1.dsk files into it. The script will also atemp to execute the editor passing the .pas and .prj files for opening.
@@ -119,9 +119,9 @@ This script invokes following tools:
 This script must be executed from the PROJECT FOLDER
 
 Example Usage: 
- cd <PROJECTS FOLDER>
- cd <PROJECT>
- ..\deft_pascal_compile_source.bat HELLO1
+ cd PROJECTS FOLDER 
+ cd PROJECT 
+ ..\deft_pascal_compile_source.bat HELLO1 <br>
      
 Above call will copy the .pas and .prj files into the project dsk file. Will than execute mame using the dsk image. Will than start AutoIT to inject keystrokes on the CoCo emulator to start DEFT PASCAL, configure the correct parameters and trigger the source code compilation. Once compilation is completed, the script will extract the compilation report from the dsk file and present it to the editor.
 
