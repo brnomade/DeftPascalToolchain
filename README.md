@@ -62,12 +62,13 @@ A WINDOWS FOLDER
  - Folders and files must always be in uppercase.
  
  On the PROJECTS FOLDER you will need to place following files:
+- deft_pascal_toolchain_configuration.bat
 - create_new_deft_pascal_project.bat 
-- deft_linker_keystrokes_automation.au3
-- deft_linker_link_objects.bat
 - deft_pascal_compile_source.bat
-- deft_pascal_keystrokes_automation.au3
+- deft_linker_link_objects.bat
 - deft_pascal_run_project.bat
+- deft_linker_keystrokes_automation.au3
+- deft_pascal_keystrokes_automation.au3
 - drive_0_loadm_and_exec_keystrokes_automation.au3
 - new_deft_pascal_project_disk.dsk
 - new_deft_pascal_project_objects_file.txt
