@@ -141,9 +141,41 @@ This script must be executed from the PROJECT FOLDER
 Example Usage: 
  cd PROJECTS FOLDER 
  cd PROJECT 
- ..\deft_pascal_compile_source.bat HELLO1 <br>
+ ..\deft_pascal_compile_source.bat HELLO1
      
 Above call will copy the .pas and .prj files into the project dsk file. Will than execute mame using the dsk image. Will than start AutoIT to inject keystrokes on the CoCo emulator to start DEFT PASCAL, configure the correct parameters and trigger the source code compilation. Once compilation is completed, the script will extract the compilation report from the dsk file and present it to the editor.
+
+- deft_linker_link_objects.bat
+
+This script will trigger the linkage of the Object files defined on the Project file passed by parameter. The name must be without any extension. 
+
+This script requires the following files to be present on the same folder:
+     - deft_pascal_toolchain_configuration.bat
+
+This script uses following configurations:
+     - DEFT_DSK_FOLDER
+     - DEFT_DSK_FILE
+     - DEFT_PROJECTS_FOLDER
+     - MAME_FOLDER
+     - AUTOIT_FOLDER
+
+This script invokes following tools:
+     - imgtool.exe from mame 
+     - mame64.exe from mame
+     - autoit3.exe from autoit
+
+This script must be executed from the PROJECT FOLDER
+
+Example Usage: 
+ cd PROJECTS FOLDER 
+ cd PROJECT 
+ ..\deft_linker_link_objects.bat HELLO1 
+ 
+Above call will copy the .prj file into the project dsk file. Will than execute mame using the dsk image. Will than start AutoIT to inject keystrokes on the CoCo emulator to start DEFT LINKER, configure the correct parameters and trigger the linkage process. Once linkage is completed, the script will extract the linkage report from the dsk file and present it to the editor.
+
+The .prj file is prepared by the create_new_deft_pascal_project.bat when the project is created. You can edit the file and add more objects to be linked.If you change the prj file, observe following rules (Indicated on the DEFT AGS Manual):
+
+     - the file DEFTAGS/LIB should be specified as the last object file to link, with the main file being the first one.
 
 6. Triggering the Toolchain from your editor of choice
 
