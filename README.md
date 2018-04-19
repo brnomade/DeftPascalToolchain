@@ -62,8 +62,8 @@ An example:
  - Folders and files must always be in uppercase.
  
  On the PROJECTS FOLDER you will need to place following files:
- - create_new_deft_pascal_project.bat 
- -deft_linker_keystrokes_automation.au3
+- create_new_deft_pascal_project.bat 
+- deft_linker_keystrokes_automation.au3
 - deft_linker_link_objects.bat
 - deft_pascal_compile_source.bat
 - deft_pascal_keystrokes_automation.au3
@@ -78,19 +78,49 @@ An example:
 - create_new_deft_pascal_project.bat 
 
 This script will create a brand new FOLDER and PROJECT FILES based on a name passed by parameter.
-  - CoCo file name conventions and limitations apply here.
-  - Folder and files must comply to the 8 characters size and always be in uppercase.
-  - The script does not yet check or enforce such constraints.
+     - CoCo file name conventions and limitations apply here.
+     - Folder and files must comply to the 8 characters size and always be in uppercase.
+     - The script does not yet check or enforce such constraints.
  
- Usage: 
+This script must be executed from the PROJECTS FOLDER
+
+This script requires the following files to be present on the same folder:
+     - new_deft_pascal_project_disk.dsk
+     - new_deft_pascal_project_objects_file.txt
+     - new_deft_pascal_project_source.pas
+
+This script uses following configurations
+     - DEFT_PROJECTS_FOLDER
+     - EDITOR_FOLDER
+     - EDITOR_EXECUTABLE
+
+Example Usage: 
  cd <PROJECTS FOLDER>
  .\create_new_deft_pascal_project.bat HELLO1
- 
-This will create a new folder called HELLO1 and will place HELLO1.pas, HELLO1.prj and HELLO1.dsk files into it. The lowercase extensions are correct and will be adjusted by the scrips when needed.
- 
 
+Above call will create a new folder called HELLO1 and will place HELLO1.pas, HELLO1.prj and HELLO1.dsk files into it. The script will also atemp to execute the editor passing the .pas and .prj files for opening.
 
+- deft_pascal_compile_source.bat
 
+This script will trigger the compilation of the SOURCE FILE identified by the name passed by parameter. The name must be without any extension. 
+
+This script uses following configurations:
+     - DEFT_DSK_FOLDER
+     - DEFT_DSK_FILE
+     - DEFT_PROJECTS_FOLDER
+     - MAME_FOLDER
+     - AUTOIT_FOLDER
+
+This script invokes following tools:
+     - imgtool.exe from mame 
+     - mame64.exe from mame
+     - autoit3.exe from autoit
+
+Example Usage: 
+ cd <PROJECTS FOLDER>
+ .\deft_pascal_compile_source.bat HELLO1
+     
+Above call will copy the .pas and .prj files into the project dsk file. Will than execute mame using the dsk image. Will than start AutoIT to inject keystrokes on the CoCo emulator to start DEFT PASCAL, configure the correct parameters and trigger the source code compilation. Once compilation is completed, the script will extract the compilation report from the dsk file and present it to the editor.
 
 
 
