@@ -22,7 +22,7 @@ In general terms:
 
 1. Mame
 
-Make sure Mame is installed on yourmachines. A front end is not needed for this toolchain.
+Make sure Mame is installed on your machine. A front end is not needed for this toolchain.
 
 Make sure the CoCo roms are placed in the /ROM folder under the mame folder. 
 
@@ -121,6 +121,10 @@ Example Usage:
  .\deft_pascal_compile_source.bat HELLO1
      
 Above call will copy the .pas and .prj files into the project dsk file. Will than execute mame using the dsk image. Will than start AutoIT to inject keystrokes on the CoCo emulator to start DEFT PASCAL, configure the correct parameters and trigger the source code compilation. Once compilation is completed, the script will extract the compilation report from the dsk file and present it to the editor.
+
+6. Triggering the Toolchain from your editor of choice
+
+7. Typical Workflow
 
 
 
