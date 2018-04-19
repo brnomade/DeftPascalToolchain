@@ -89,7 +89,7 @@ This script requires the following files to be present on the same folder:
      - new_deft_pascal_project_objects_file.txt
      - new_deft_pascal_project_source.pas
 
-This script uses following configurations
+This script uses following configurations:
      - DEFT_PROJECTS_FOLDER
      - EDITOR_FOLDER
      - EDITOR_EXECUTABLE
@@ -116,9 +116,12 @@ This script invokes following tools:
      - mame64.exe from mame
      - autoit3.exe from autoit
 
+This script must be executed from the PROJECT FOLDER
+
 Example Usage: 
  cd <PROJECTS FOLDER>
- .\deft_pascal_compile_source.bat HELLO1
+ cd <PROJECT>
+ ..\deft_pascal_compile_source.bat HELLO1
      
 Above call will copy the .pas and .prj files into the project dsk file. Will than execute mame using the dsk image. Will than start AutoIT to inject keystrokes on the CoCo emulator to start DEFT PASCAL, configure the correct parameters and trigger the source code compilation. Once compilation is completed, the script will extract the compilation report from the dsk file and present it to the editor.
 
