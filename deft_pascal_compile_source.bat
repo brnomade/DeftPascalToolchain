@@ -50,15 +50,16 @@ ECHO ------------------------
 
 cd "%MAME_FOLDER%"
 @ECHO ON
-start .\mame64.exe coco2b -flop1 "%DEFT_DSK_FOLDER%\%DEFT_DSK_FILE%" -flop2 "%DEFT_PROJECTS_FOLDER%\%~1\%~1.dsk" -window -keepaspect -natural -speed 3.0
+START .\mame64.exe coco2b -flop1 "%DEFT_DSK_FOLDER%\%DEFT_DSK_FILE%" -flop2 "%DEFT_PROJECTS_FOLDER%\%~1\%~1.dsk" -window -keepaspect -natural -speed 3.0
 @ECHO OFF
 
 ECHO ------------------------
 ECHO EXECUTING DEFT PASCAL 
 ECHO ------------------------
 
+cd "%AUTOIT_FOLDER%"
 @ECHO ON
-start /W "%AUTOIT_FOLDER%\autoit3.exe" "%DEFT_PROJECTS_FOLDER%\deft_pascal_keystrokes_automation.au3" %~1
+".\autoit3.exe" "%DEFT_PROJECTS_FOLDER%\deft_pascal_keystrokes_automation.au3" %~1
 @ECHO OFF
 
 ECHO ------------------------

@@ -1,21 +1,38 @@
 #include <MsgBoxConstants.au3>
 
+Func waitForPrompt($sSection, $sKey) 
+    ; Wait until the prompt cursor is presented on the screen
+    ; Use relative coordinates read from INI file.
+    Local $sIniValue
+    Local $iX = 0
+    Local $iY = 0
+    Local $wP
+    Local $iColor = 0
+
+    $sIniValue =StringSplit(IniRead("C:\CODING\TRSCOLOR\DeftPascal\Projects\deft_automation.ini",$sSection,$sKey,""),",");
+    If $sIniValue[0] <> 2 then
+        MsgBox($MB_SYSTEMMODAL, "", "error")
+        exit
+        break
+    EndIf
+    Do
+       $wP = WinGetPos("[CLASS:MAME]", "")
+       $iX = Int($sIniValue[1]) + $wP[0]
+       $iY = Int($sIniValue[2]) + $wP[1]
+       MouseMove($iX, $iY)
+       $iColor = PixelGetColor($iX, $iY)
+       Sleep(500)    
+    Until ($iColor > 0) AND ($iColor <> 524032)
+    Return
+EndFunc
+
+; Start of script
 WinWait("[CLASS:MAME]", "")
 WinActivate("[CLASS:MAME]", "")
-
 AutoItSetOption ( "SendKeyDownDelay" , 45 )
 
-;Wait until the computer has booted and a prompt cursor is presented on the screen
-Local $x = 337
-Local $y = 390
-Local $iColor = 0
-;MouseMove($x,$y,10)
-Do
-   $iColor = PixelGetColor($x,$y)
-   Sleep(500)
-Until ($iColor > 0) AND ($iColor <> 524032)
-
-;Start Compiler
+;Start compiler
+waitForPrompt("Power Up Prompt","Boot")
 Send("DRIVE 0{ENTER}")
 Send("LOADM")
 Send("{LSHIFT down}2{LSHIFT up}")
@@ -23,99 +40,29 @@ Send("PASCAL")
 Send("{LSHIFT down}2{LSHIFT up}")
 Send(":EXEC{ENTER}")
 
-;Wait for the compiler to start and present the prompt cursor on the screen
-$x = 595
-$y = 347
-;MouseMove($x,$y,10)
-Do
-   $iColor = PixelGetColor($x,$y)
-   Sleep(500)
-Until $iColor <> 524032
-
-;Source File
+;Type Source file name
+waitForPrompt("Deft Pascal Prompts","Source")
 Send($CmdLine[1])
 Send("/PAS:1{ENTER}")
 
-;Wait for the cursor to be prompted on the screen
-$x = 595
-$y = 396
-;MouseMove($x,$y,10)
-Do
-   $iColor = PixelGetColor($x,$y)
-   Sleep(500)
-Until $iColor <> 524032
-
-;Object File
+;Type Object file name
+waitForPrompt("Deft Pascal Prompts","Object")
 Send($CmdLine[1])
 Send("/OBJ:1{ENTER}")
 
-;Wait for the cursor to be prompted on the screen
-$x = 595
-$y = 442
-;MouseMove($x,$y,10)
-Do
-   $iColor = PixelGetColor($x,$y)
-   Sleep(500)
-Until $iColor <> 524032
-
-;Listing
+;Type List file name
+waitForPrompt("Deft Pascal Prompts","List")
 Send($CmdLine[1])
 Send("/LST:1{ENTER}")
 
-;Wait for the cursor to be prompted on the screen
-$x = 595
-$y = 490
-;MouseMove($x,$y,10)
-Do
-   $iColor = PixelGetColor($x,$y)
-   Sleep(500)
-Until $iColor <> 524032
-
-;Debug Information
+;Type Debug Directive
+waitForPrompt("Deft Pascal Prompts","Debug")
 Send("N{ENTER}")
 
-;Wait for the cursor to be prompted on the screen
-$x = 693
-$y = 540
-;MouseMove($x,$y,10)
-Do
-   $iColor = PixelGetColor($x,$y)
-   Sleep(500)
-Until $iColor <> 524032
-
+;Type Compiler Directives
+waitForPrompt("Deft Pascal Prompts","Directive")
 Send("{ENTER}")
 
-;Wait for the compiler to finish its execution
-$x = 335
-$y = 624
-;MouseMove($x,$y,10)
-Do
-   $iColor = PixelGetColor($x,$y)
-   Sleep(500)
-Until ($iColor = 32000)
-
-;Sleep(5000)
+;Wait before closing Mame
 MsgBox($MB_OK, "Waiting for Disk to Finish Operating", "Press OK to return to editor.")
-
 WinClose("[CLASS:MAME]", "")
-
-
-
-;Run("notepad.exe")
-;Do
-;   $aPos = MouseGetPos()
-;   Local $iColor = PixelGetColor($aPos[0],$aPos[1])
-;   WinActivate("Untitled - Notepad")
-;   Send("[")
-;   Send($aPos[0])
-;   Send(":")
-;   Send($aPos[1])
-;   Send("=")
-;   Send($iColor)
-;   Send("]")
-;   Send("{ENTER}")
-;   WinActivate("[CLASS:MAME]", "")
-;Until $aPos[0] <= 10
-
-
-
