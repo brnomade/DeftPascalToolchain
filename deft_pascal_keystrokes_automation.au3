@@ -1,35 +1,10 @@
 #include <MsgBoxConstants.au3>
-
-Func waitForPrompt($sSection, $sKey) 
-    ; Wait until the prompt cursor is presented on the screen
-    ; Use relative coordinates read from INI file.
-    Local $sIniValue
-    Local $iX = 0
-    Local $iY = 0
-    Local $wP
-    Local $iColor = 0
-
-    $sIniValue =StringSplit(IniRead("C:\CODING\TRSCOLOR\DeftPascal\Projects\deft_automation.ini",$sSection,$sKey,""),",");
-    If $sIniValue[0] <> 2 then
-        MsgBox($MB_SYSTEMMODAL, "", "error")
-        exit
-        break
-    EndIf
-    Do
-       $wP = WinGetPos("[CLASS:MAME]", "")
-       $iX = Int($sIniValue[1]) + $wP[0]
-       $iY = Int($sIniValue[2]) + $wP[1]
-       MouseMove($iX, $iY)
-       $iColor = PixelGetColor($iX, $iY)
-       Sleep(500)    
-    Until ($iColor > 0) AND ($iColor <> 524032)
-    Return
-EndFunc
+#include "deft_automation_library.au3"
+#include "deft_automation_initialisation.au3"
 
 ; Start of script
 WinWait("[CLASS:MAME]", "")
 WinActivate("[CLASS:MAME]", "")
-AutoItSetOption ( "SendKeyDownDelay" , 45 )
 
 ;Start compiler
 waitForPrompt("Power Up Prompt","Boot")

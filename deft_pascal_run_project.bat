@@ -35,8 +35,9 @@ ECHO ------------------------
 ECHO EXECUTING DEFT PASCAL 
 ECHO ------------------------
 
+cd "%AUTOIT_FOLDER%"
 @ECHO ON
-start /W "%AUTOIT_FOLDER%\autoit3.exe" "%DEFT_PROJECTS_FOLDER%\drive_0_loadm_and_exec_keystrokes_automation.au3" %~1
+".\autoit3.exe" "%DEFT_PROJECTS_FOLDER%\drive_0_loadm_and_exec_keystrokes_automation.au3" %~1
 @ECHO OFF
 
 ECHO ------------------------
