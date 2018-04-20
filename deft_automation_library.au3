@@ -17,13 +17,13 @@ Func waitForPrompt($sSection, $sKey)
 
     $sIniValue = StringSplit(IniReadWrapper($sSection,$sKey),",")
     If $sIniValue[0] <> 2 then
-        MsgBox($MB_OK + $MB_ICONERROR, "Error reading from INI file", "Couldn't find Section '" & $sSection & "' or Key '" & $sKey & "' on file. Press OK to return to editor.")
+        MsgBox($MB_OK + $MB_ICONERROR, "Error reading from INI file", "Couldn't find Section '" & $sSection & "' or Key '" & $sKey & "' on file at " & @ScriptDir & ". Press OK to return to editor.")
         exit
     EndIf
 
     $sColorExpected = IniReadWrapper("Prompt Colors","Cursor")
     If $sColorExpected = "" then
-        MsgBox($MB_OK + $MB_ICONERROR, "Error reading from INI file", "Couldn't find Section '" & $sSection & "' or Key '" & $sKey & "' on file. Press OK to return to editor.")
+        MsgBox($MB_OK + $MB_ICONERROR, "Error reading from INI file", "Couldn't find Section '" & $sSection & "' or Key '" & $sKey & "' on fil eat " & @ScriptDir & ". Press OK to return to editor.")
         exit
     EndIf
  
