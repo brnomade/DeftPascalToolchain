@@ -13,11 +13,20 @@ Func waitForPrompt($sSection, $sKey)
     Local $iY = 0
     Local $wP
     Local $iColor = 0
-    $sIniValue =StringSplit(IniReadWrapper($sSection,$sKey),",")
+    Local $sColorExpected
+
+    $sIniValue = StringSplit(IniReadWrapper($sSection,$sKey),",")
     If $sIniValue[0] <> 2 then
         MsgBox($MB_OK + $MB_ICONERROR, "Error reading from INI file", "Couldn't find Section '" & $sSection & "' or Key '" & $sKey & "' on file. Press OK to return to editor.")
         exit
     EndIf
+
+    $sColorExpected = IniReadWrapper("Prompt Colors","Cursor")
+    If $sColorExpected = "" then
+        MsgBox($MB_OK + $MB_ICONERROR, "Error reading from INI file", "Couldn't find Section '" & $sSection & "' or Key '" & $sKey & "' on file. Press OK to return to editor.")
+        exit
+    EndIf
+ 
     Do
        $wP = WinGetPos("[CLASS:MAME]", "")
        $iX = Int($sIniValue[1]) + $wP[0]
@@ -25,6 +34,6 @@ Func waitForPrompt($sSection, $sKey)
        MouseMove($iX, $iY)
        $iColor = PixelGetColor($iX, $iY)
        Sleep(500)    
-    Until ($iColor > 0) AND ($iColor <> 524032)
+    Until ($iColor > 0) AND ($iColor <> Int($sColorExpected))
     Return
 EndFunc
