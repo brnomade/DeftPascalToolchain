@@ -70,7 +70,6 @@ A WINDOWS FOLDER
 - deft_pascal_link_objects.bat
 - deft_pascal_run_project.bat
 - deft_automation_library.au3
-- deft_automation_initialisation.au3
 - deft_automation.ini
 - deft_linker_keystrokes_automation.au3
 - deft_pascal_keystrokes_automation.au3
