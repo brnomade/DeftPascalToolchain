@@ -20,6 +20,12 @@ ECHO MAME FOLDER: %MAME_FOLDER%
 ECHO AUTOIT FOLDER: %AUTOIT_FOLDER%
 
 ECHO ------------------------
+ECHO PROJECT FOLDER CONTENTS
+ECHO ------------------------
+
+dir "%DEFT_PROJECTS_FOLDER%\%~1"
+
+ECHO ------------------------
 ECHO UPDATING DSK FILE
 ECHO ------------------------
 
@@ -47,9 +53,9 @@ ECHO ------------------------
 ECHO EXECUTING DEFT LINKER 
 ECHO ------------------------
 
-cd "%AUTOIT_FOLDER%"
+
 @ECHO ON
-".\autoit3.exe" "%DEFT_PROJECTS_FOLDER%\deft_linker_keystrokes_automation.au3" %~1
+"%AUTOIT_FOLDER%\autoit3.exe" "%DEFT_PROJECTS_FOLDER%\deft_linker_keystrokes_automation.au3" %~1
 @ECHO OFF
 
 ECHO ------------------------

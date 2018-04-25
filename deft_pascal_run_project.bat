@@ -35,9 +35,8 @@ ECHO ------------------------
 ECHO EXECUTING DEFT PASCAL 
 ECHO ------------------------
 
-cd "%AUTOIT_FOLDER%"
 @ECHO ON
-".\autoit3.exe" "%DEFT_PROJECTS_FOLDER%\drive_0_loadm_and_exec_keystrokes_automation.au3" %~1
+"%AUTOIT_FOLDER%\autoit3.exe" "%DEFT_PROJECTS_FOLDER%\drive_0_loadm_and_exec_keystrokes_automation.au3" %~1
 @ECHO OFF
 
 ECHO ------------------------
@@ -46,6 +45,7 @@ ECHO ------------------------
 
 ECHO Deleting old %~1.LST from project folder
 del "%DEFT_PROJECTS_FOLDER%\%~1\%~1.lst"
+cd "%DEFT_PROJECTS_FOLDER%\%~1"
 
 ECHO ------------------------
 ECHO EXECUTION COMPLETED...

@@ -1,8 +1,10 @@
 #include <MsgBoxConstants.au3>
 #include "deft_automation_library.au3"
-#include "deft_automation_initialisation.au3"
 
-; Start of script
+; Initialise
+AutoItSetOption ("SendKeyDownDelay" , Int(IniReadWrapper("Control Values","KeyboardDelay")))
+
+; Start script
 WinWait("[CLASS:MAME]", "")
 WinActivate("[CLASS:MAME]", "")
 
