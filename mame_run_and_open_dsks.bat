@@ -23,7 +23,7 @@ ECHO ------------------------
 
 cd "%MAME_FOLDER%"
 @ECHO ON
-START /W .\mame64.exe coco2b -flop1 "%~1" -flop2 "%~2" -window -keepaspect -natural -speed 3.0
+START /W .\mame64.exe coco2b -flop1 "%~1" -flop2 "%~2" -window -keepaspect -natural -speed 9.0
 @ECHO OFF
 
 ECHO ------------------------

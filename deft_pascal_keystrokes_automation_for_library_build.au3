@@ -8,40 +8,36 @@ AutoItSetOption ("SendKeyDownDelay" , Int(IniReadWrapper("Control Values","KeyPr
 WinWait("[CLASS:MAME]", "")
 WinActivate("[CLASS:MAME]", "")
 
-;Start Linker
+;Start compiler
 waitForPrompt("Power Up Prompt","Boot")
 Send("LOADM")
 Send("{LSHIFT down}2{LSHIFT up}")
-Send("LINKER")
+Send("PASCAL")
 Send("{LSHIFT down}2{LSHIFT up}")
 Send(":EXEC{ENTER}")
 
-;Type ORIGIN
-waitForPrompt("Deft Linker Prompts","Origin")
-Send("{ENTER}")
+;Type Source file name
+waitForPrompt("Deft Pascal Prompts","Source")
+Send($CmdLine[1])
+Send("/MOD:1{ENTER}")
 
-;Type LIST FILE
-waitForPrompt("Deft Linker Prompts","List")
+;Type Object file name
+waitForPrompt("Deft Pascal Prompts","Object")
+Send($CmdLine[1])
+Send("/LIB:1{ENTER}")
+
+;Type List file name
+waitForPrompt("Deft Pascal Prompts","List")
 Send($CmdLine[1])
 Send("/LST:1{ENTER}")
 
-;Type BINARY FILE
-waitForPrompt("Deft Linker Prompts","BinaryFile")
-Send($CmdLine[1])
-Send("/BIN:1{ENTER}")
-
-;Type PASCAL (Y/N)
-waitForPrompt("Deft Linker Prompts","PascalFlag")
-Send("Y{ENTER}")
-
-;Type DEBUGGER (Y/N)
-waitForPrompt("Deft Linker Prompts","DebuggerFlag")
+;Type Debug Directive
+waitForPrompt("Deft Pascal Prompts","Debug")
 Send("N{ENTER}")
 
-;Type OBJECT FILES
-waitForPrompt("Deft Linker Prompts","ObjNamesFile")
-Send($CmdLine[1])
-Send("/PRJ:1{ENTER}")
+;Type Compiler Directives
+waitForPrompt("Deft Pascal Prompts","Directive")
+Send("{ENTER}")
 
 ;Wait before closing Mame
 MsgBox($MB_OK, "Waiting for Disk to Finish Operating", "Press OK to return to editor.")

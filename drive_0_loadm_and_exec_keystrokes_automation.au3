@@ -2,7 +2,7 @@
 #include "deft_automation_library.au3"
 
 ; Initialise
-AutoItSetOption ("SendKeyDownDelay" , Int(IniReadWrapper("Control Values","KeyboardDelay")))
+AutoItSetOption ("SendKeyDownDelay" , Int(IniReadWrapper("Control Values","KeyPressDelay")))
 
 ; Start script
 WinWait("[CLASS:MAME]", "")
@@ -10,7 +10,6 @@ WinActivate("[CLASS:MAME]", "")
 
 ;Start Program
 waitForPrompt("Power Up Prompt","Boot")
-Send("DRIVE 0{ENTER}")
 Send("LOADM")
 Send("{LSHIFT down}2{LSHIFT up}")
 Send($CmdLine[1])

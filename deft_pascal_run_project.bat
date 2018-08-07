@@ -28,7 +28,7 @@ ECHO ------------------------
 
 cd "%MAME_FOLDER%"
 @ECHO ON
-start .\mame64.exe coco2b -flop1 "%DEFT_PROJECTS_FOLDER%\%~1\%~1.dsk" -window -keepaspect -natural 
+start .\mame64.exe coco2b -flop1 "%DEFT_PROJECTS_FOLDER%\%~1\%~1.dsk" -window -keepaspect -natural -console -debug
 @ECHO OFF
 
 ECHO ------------------------
