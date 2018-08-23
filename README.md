@@ -2,6 +2,10 @@
 
 A tool chain to automate the build (compile and link) of Deft Pascal projects for the Tandy (Radio Shack) TRSCOLOR (a.k.a. CoCo)
 
+[23/08/2018] - Toolchain in review. Instructions below are outdated. Focus now is to redevelope the whole solution in Python.
+
+----
+
 Requirements:
 
 - Windows (as the .bat files were written on a Windows 10 machine) 
