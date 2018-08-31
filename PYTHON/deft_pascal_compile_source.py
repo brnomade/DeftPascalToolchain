@@ -344,6 +344,7 @@ def startMameAsynchronously( aConfiguration, theArguments ):
 	oscommand = oscommand + " -flop1 " + safepath( os.path.join(aConfiguration["DEFT SETTINGS"]["DEFT_DSK_FOLDER"], aConfiguration["DEFT SETTINGS"]["DEFT_DSK_FILE"]) )
 	oscommand = oscommand + " -flop2 " + safepath( os.path.join(aConfiguration["PROJECT SETTINGS"]["PROJECTS_HOME"], theArguments.folder, getDskFileNameFromArguments(theArguments)))
 	oscommand = oscommand + " -window -keepaspect -natural -speed " + aConfiguration["MAME SETTINGS"]["MAME_SPEED"]
+        oscommand = oscommand + ' -autoboot_command "LOADM"""PASCAL.BIN""":EXEC\n" -autoboot_delay 3' 
 	try:
 		subprocess.Popen(oscommand)
 	except:
