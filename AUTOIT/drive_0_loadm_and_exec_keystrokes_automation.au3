@@ -1,15 +1,13 @@
 #include <MsgBoxConstants.au3>
-#include "deft_automation_library.au3"
+#include "autoit_trscolor_automation_library.au3"
 
 ; Initialise
-AutoItSetOption ("SendKeyDownDelay" , Int(IniReadWrapper("Control Values","KeyPressDelay")))
+initialise_automation()
 
-; Start script
-WinWait("[CLASS:MAME]", "")
-WinActivate("[CLASS:MAME]", "")
+;Start Script
+waitForPrompt("Power Up","Boot")
 
-;Start Program
-waitForPrompt("Power Up Prompt","Boot")
+;Script Body
 Send("LOADM")
 Send("{LSHIFT down}2{LSHIFT up}")
 Send($CmdLine[1])
@@ -17,6 +15,6 @@ Send("/BIN")
 Send("{LSHIFT down}2{LSHIFT up}")
 Send(":EXEC{ENTER}")
 
-MsgBox($MB_OK, "Project Binary Started...", "Press OK to return to editor.")
-
-WinClose("[CLASS:MAME]", "")
+; Exit Script
+MsgBox($MB_OK, "Message", "Press OK to close emulator and return to editor.")
+finalise_automation()
