@@ -1,6 +1,9 @@
 #include <MsgBoxConstants.au3>
 #include "autoit_trscolor_automation_library.au3"
 
+; Created by Andre Ballista - 2019
+; GNU General Public License v3.0 - See LICENSE file for details.
+
 ; Initialise
 initialise_automation()
 

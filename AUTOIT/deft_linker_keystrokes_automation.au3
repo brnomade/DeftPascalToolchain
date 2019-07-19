@@ -1,15 +1,17 @@
 #include <MsgBoxConstants.au3>
-#include "deft_automation_library.au3"
+#include "autoit_trscolor_automation_library.au3"
+
+; Created by Andre Ballista - 2019
+; GNU General Public License v3.0 - See LICENSE file for details.
+
 
 ; Initialise
-AutoItSetOption ("SendKeyDownDelay" , Int(IniReadWrapper("Control Values","KeyPressDelay")))
+initialise_automation()
 
-; Start script
-WinWait("[CLASS:MAME]", "")
-WinActivate("[CLASS:MAME]", "")
+;Start Script
+waitForPrompt("Power Up","Boot")
 
-;Start Linker
-waitForPrompt("Power Up Prompt","Boot")
+;Script Body
 Send("LOADM")
 Send("{LSHIFT down}2{LSHIFT up}")
 Send("LINKER")
@@ -44,5 +46,5 @@ Send($CmdLine[1])
 Send("/PRJ:1{ENTER}")
 
 ;Wait before closing Mame
-MsgBox($MB_OK, "Waiting for Disk to Finish Operating", "Press OK to return to editor.")
-WinClose("[CLASS:MAME]", "")
+MsgBox($MB_OK, "Waiting for Disk to Finish Operating", "Press OK to close emulator and return to editor.")
+finalise_automation()
