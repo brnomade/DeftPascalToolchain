@@ -39,6 +39,8 @@ class DeftPascalCompiler(DeftPascalToolChain):
 		self.refresh_project_libraries(dependency_list)
 		self.generate_project_file(dependency_list)
 		self.list_files_present_in_project_folder()
+		self._present_section_header("CREATE NEW DSK FILE")
+		self._utils.create_dsk_file(self._get_dsk_file_name_from_arguments(), self._args.project_folder, self._args.emulator_folder)
 		self._present_section_header("DSK FILE CONTENTS")
 		self._utils.list_files_on_dsk(self._get_dsk_file_name_from_arguments(), self._args.project_folder, self._args.emulator_folder)
 		self.refresh_dsk_with_all_relevant_files(dependency_list)

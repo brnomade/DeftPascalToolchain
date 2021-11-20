@@ -37,6 +37,20 @@ class LuaScript:
 
 class ToolChainUtils:
 
+    def create_dsk_file(self, dsk_file_name, dsk_folder_name, emulator_folder_name):
+        # Create an empty dsk_file_name located in dsk_folder_name
+        print("Creating '{0}' in '{1}'".format(dsk_file_name, dsk_folder_name))
+        oscommand = "{0} {1} {2} {3}".format(self.safepath(os.path.join(emulator_folder_name, "imgtool.exe")),
+                                             "create",
+                                             "coco_jvc_rsdos",
+                                             self.safepath(os.path.join(dsk_folder_name, dsk_file_name)))
+        try:
+            subprocess.run(oscommand, shell=True, check=True, capture_output=True)
+        except subprocess.CalledProcessError as error:
+            print("\nAborting execution. Unable to execute Mame imgtool.")
+            print("Check if imgtool is located in '{0}'.".format(emulator_folder_name))
+            sys.exit(1)
+
     def delete_file_in_dsk(self, file_name, dsk_file_name, dsk_folder_name, emulator_folder_name):
         # Delete a file_name from a dsk_file_name located in dsk_folder_name
         print("Deleting '{0}' in '{1}' from '{2}'".format(file_name, dsk_file_name, dsk_folder_name))
