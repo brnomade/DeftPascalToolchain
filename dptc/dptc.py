@@ -5,12 +5,12 @@ import os
 import subprocess
 import shutil
 from string import Template
-
+from dptc_templates import LuaTemplate
 
 class LuaScript:
 
     @staticmethod
-    def create_lua_script(template_name, substitutions, output_name, output_location):
+    def create_lua_script_from_file(template_name, substitutions, output_name, output_location):
         with open(template_name, 'r') as f:
             src = Template(f.read())
             result = src.substitute(substitutions)
@@ -20,17 +20,39 @@ class LuaScript:
         f.close()
         return filename
 
+    @staticmethod
+    def create_lua_script(template, substitutions, output_name, output_location):
+        src = Template(template)
+        result = src.substitute(substitutions)
+        filename = "{0}.lua".format(output_name)
+        f = open(os.path.join(output_location, filename), "w")
+        f.write(result)
+        f.close()
+        return filename
+
     def create_compilation_script(self, source_name, project_folder):
-        return self.create_lua_script("deft_pascal_compile_script_template.lua",
+        return self.create_lua_script(LuaTemplate.compile_script(),
                                       {"SOURCE": source_name, "OBJECT": source_name, "LIST": source_name},
                                       source_name,
                                       project_folder)
 
     def create_linking_script(self, source_name, project_folder):
-        return self.create_lua_script("deft_pascal_link_script_template.lua",
-                                      {"SOURCE": source_name, "EXEC": source_name, "LIST": source_name},
-                                      source_name,
-                                      project_folder)
+        return self.create_lua_script_from_file(LuaTemplate.link_script(),
+                                                {"SOURCE": source_name, "EXEC": source_name, "LIST": source_name},
+                                                source_name,
+                                                project_folder)
+
+    def create_compilation_script_2(self, source_name, project_folder):
+        return self.create_lua_script_from_file("deft_pascal_compile_script_template.lua",
+                                                {"SOURCE": source_name, "OBJECT": source_name, "LIST": source_name},
+                                                source_name,
+                                                project_folder)
+
+    def create_linking_script_2(self, source_name, project_folder):
+        return self.create_lua_script_from_file("deft_pascal_link_script_template.lua",
+                                                {"SOURCE": source_name, "EXEC": source_name, "LIST": source_name},
+                                                source_name,
+                                                project_folder)
 
 
 class ToolChainUtils:
