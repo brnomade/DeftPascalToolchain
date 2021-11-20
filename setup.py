@@ -12,7 +12,7 @@ setuptools.setup(
         long_description=long_description,
         long_description_content_type="text/markdown",
         url="https://github.com/brnomade/DeftPascalToolchain",
-        packages=["dptc"],
+        packages=["dptc", "dptc_templates"],
         install_requires=['configargparse'],
         scripts=['utils/dptcc.py', 'utils/dptcl.py'],
         package_data={'dptc': ['deft_pascal_compile_script_template.lua', "deft_pascal_link_script_template.lua"]},
