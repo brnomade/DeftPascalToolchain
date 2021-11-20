@@ -376,7 +376,7 @@ class DeftPascalToolChain:
             self._utils.copy_file_to_dsk(prj_file_name, self._args.project_folder, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
 
         # refresh all libraries
-        print("dependency list" + a_dependency_list)
+        print("dependency list" + str(a_dependency_list))
         for a_lib_file_name in a_dependency_list:
             self._utils.delete_file_in_dsk(a_lib_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
             self._utils.copy_file_to_dsk(a_lib_file_name, self._args.project_folder, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
