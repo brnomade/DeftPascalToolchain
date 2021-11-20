@@ -2,10 +2,8 @@
 
 import sys
 import os
-import configargparse
 import subprocess
 import shutil
-from collections import deque
 from string import Template
 
 
@@ -296,6 +294,19 @@ class DeftPascalToolChain:
         else:
             print("No libraries refreshed.")
 
+    def generate_project_file(self, dependency_list):
+        self._present_section_header("GENERATE PROJECT FILE")
+        source = self._get_source_file_name_from_arguments().replace(".pas", "")
+        if source not in dependency_list:
+            dependency_list.append(source)
+        with open(os.path.join(self._args.project_folder, self._get_prj_file_name_from_arguments()), 'w') as f:
+            if not dependency_list:
+                print("No files to include in the project file")
+            for filename in dependency_list:
+                filename = "{0}/OBJ:1".format(filename)
+                f.write(filename)
+                print("including '{0}'".format(filename))
+
     def list_files_present_in_project_folder(self):
         # Execute a call to the operating system to get the list of files on the project folder
         self._present_section_header("PROJECT FOLDER CONTENTS")
@@ -333,7 +344,7 @@ class DeftPascalToolChain:
 
     def _get_prj_file_name_from_arguments(self):
         # Return a PRJ file name derived from the script arguments
-        return self._args.source_file.strip().split(".")[0] + ".prj"
+        return ".PRJ".format(self._args.source_file.strip().split(".")[0])
 
     def _get_dsk_file_name_from_arguments(self):
         # Return a DSK file name derived from the script arguments
@@ -365,6 +376,7 @@ class DeftPascalToolChain:
             self._utils.copy_file_to_dsk(prj_file_name, self._args.project_folder, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
 
         # refresh all libraries
+        print("dependency list" + a_dependency_list)
         for a_lib_file_name in a_dependency_list:
             self._utils.delete_file_in_dsk(a_lib_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
             self._utils.copy_file_to_dsk(a_lib_file_name, self._args.project_folder, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)

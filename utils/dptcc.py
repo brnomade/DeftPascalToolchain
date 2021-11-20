@@ -15,18 +15,6 @@ class DeftPascalCompiler(DeftPascalToolChain):
 	def _default_tool_title():
 		return "DPTCC - DEFT PASCAL TOOL CHAIN COMPILER - FOR DEFT PASCAL II VERSION 4.1"
 
-	def generate_project_file(self, dependency_list):
-		self._present_section_header("GENERATE PROJECT FILE")
-		source = self._get_source_file_name_from_arguments().replace(".pas", "")
-		if source not in dependency_list:
-			dependency_list.append(source)
-		with open(path.join(self._args.project_folder, self._get_prj_file_name_from_arguments()), 'w') as f:
-			if not dependency_list:
-				print("No files to include in the project file")
-			for filename in dependency_list:
-				f.write("{0}/OBJ:1".format(filename))
-				print("including '{0}'".format(filename))
-
 	def compile(self):
 		self._present_section_header("STARTING COMPILER VIA EMULATOR")
 		print(self._start_emulator(LuaScript().create_compilation_script(self._args.source_file.strip().split(".")[0],
