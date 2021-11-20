@@ -297,7 +297,7 @@ class DeftPascalToolChain:
     def generate_project_file(self, dependency_list):
         self._present_section_header("GENERATE PROJECT FILE")
         particle = "{0}/OBJ:1"
-        with open(os.path.join(self._args.project_folder, self._get_prj_file_name_from_arguments()), 'w') as f
+        with open(os.path.join(self._args.project_folder, self._get_prj_file_name_from_arguments()), 'w') as f:
             temp_name = particle.format(self._get_source_file_name_from_arguments().replace(".pas", ""))
             f.write(temp_name)
             print("including '{0}' as '{1}'".format(self._get_source_file_name_from_arguments(), temp_name))
