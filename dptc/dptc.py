@@ -156,15 +156,16 @@ class DeftPascalToolChain:
         print(self._parser.format_values())
 
     def _check_source_file_requirements(self):
+
         if self._args.source_file.count(".") != 1:
             # extension is present
             print("\nAborting execution. {0}.".format("Source filename must have an extension"))
             return False
-        elif len(self._args.source_file["."][1]) > 3:
+        elif len(self._args.source_file.split(".")[1]) > 3:
             # extension is max 3 length
             print("\nAborting execution. {0}.".format("Maximum extension length exceeded"))
             return False
-        elif len(self._args.source_file["."][0]) > 8:
+        elif len(self._args.source_file.split(".")[0]) > 8:
             # filename is max 8 length
             print("\nAborting execution. {0}.".format("Maximum filename length exceeded"))
             return False
