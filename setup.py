@@ -14,7 +14,7 @@ setuptools.setup(
         url="https://github.com/brnomade/DeftPascalToolchain",
         packages=setuptools.find_packages(),
         install_requires=['configargparse'],
-        scripts=['bin/funniest-joke'],
+        scripts=['UTILS/dptcc', 'UTILS/dptcl'],
         classifiers=(
             "Development Status :: 4 - Beta",
             "Programming Language :: Python :: 3.8",
