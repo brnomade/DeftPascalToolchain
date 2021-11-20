@@ -1,8 +1,8 @@
 # (2021) Andre Ballista
 
 import configargparse
-from dptc import DeftPascalToolChain
-from dptc import LuaScript
+from dptc.dptc import DeftPascalToolChain
+from dptc.dptc import LuaScript
 import os.path as path
 import sys
 
