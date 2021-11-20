@@ -334,11 +334,11 @@ class DeftPascalToolChain:
     def _get_obj_file_name_from_arguments(self):
         # Return an object file name derived from the script arguments
         if self._args.type.strip() == "MAIN":
-            extension = ".OBJ"
+            extension = "OBJ"
         elif self._args.type.strip() == "MODULE":
-            extension = ".LIB"
+            extension = "LIB"
         else:
-            extension = ".OBJ"
+            extension = "OBJ"
         return "{0}.{1}".format(self._args.source_file.strip().split(".")[0], extension)
 
     def _get_prj_file_name_from_arguments(self):
