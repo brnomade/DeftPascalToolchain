@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # (2021) Andre Ballista
 
 import configargparse
