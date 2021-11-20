@@ -50,7 +50,7 @@ class LuaTemplate:
         function on_frame_event()
             if (current_position > 6) then
                 emu.register_frame_done(nil, "frame")
-                print("compilation completed")
+                print("linkage completed")
                 manager.machine:exit()
             end
             if (cursor_location() == positions[current_position]) then
