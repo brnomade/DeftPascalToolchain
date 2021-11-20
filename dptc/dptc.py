@@ -296,16 +296,15 @@ class DeftPascalToolChain:
 
     def generate_project_file(self, dependency_list):
         self._present_section_header("GENERATE PROJECT FILE")
-        source = self._get_source_file_name_from_arguments().replace(".pas", "")
-        if source not in dependency_list:
-            dependency_list.append(source)
-        with open(os.path.join(self._args.project_folder, self._get_prj_file_name_from_arguments()), 'w') as f:
-            if not dependency_list:
-                print("No files to include in the project file")
+        particle = "{0}/OBJ:1"
+        with open(os.path.join(self._args.project_folder, self._get_prj_file_name_from_arguments()), 'w') as f
+            temp_name = particle.format(self._get_source_file_name_from_arguments().replace(".pas", ""))
+            f.write(temp_name)
+            print("including '{0}' as '{1}'".format(self._get_source_file_name_from_arguments(), temp_name))
             for filename in dependency_list:
-                filename = "{0}/OBJ:1".format(filename)
-                f.write(filename)
-                print("including '{0}'".format(filename))
+                temp_name = particle.format(filename)
+                f.write(temp_name)
+                print("including '{0}' as '{1}'".format(filename, temp_name))
 
     def list_files_present_in_project_folder(self):
         # Execute a call to the operating system to get the list of files on the project folder
