@@ -335,24 +335,24 @@ class DeftPascalToolChain:
     def _get_obj_file_name_from_arguments(self):
         # Return an object file name derived from the script arguments
         if self._args.type.strip() == "MAIN":
-            extension = ".obj"
+            extension = ".OBJ"
         elif self._args.type.strip() == "MODULE":
-            extension = ".lib"
+            extension = ".LIB"
         else:
-            extension = ".obj"
+            extension = ".OBJ"
         return "{0}.{1}".format(self._args.source_file.strip().split(".")[0], extension)
 
     def _get_prj_file_name_from_arguments(self):
         # Return a PRJ file name derived from the script arguments
-        return ".PRJ".format(self._args.source_file.strip().split(".")[0])
+        return "{0}.PRJ".format(self._args.source_file.strip().split(".")[0])
 
     def _get_dsk_file_name_from_arguments(self):
         # Return a DSK file name derived from the script arguments
-        return self._args.dsk_file.strip().split(".")[0] + ".dsk"
+        return "{0}.dsk".format(self._args.dsk_file.strip().split(".")[0])
 
     def _get_lst_file_name_from_arguments(self):
         # Return a PRJ file name derived from the script arguments
-        return self._args.source_file.strip().split(".")[0] + ".lst"
+        return "{0}.LST".format(self._args.source_file.strip().split(".")[0])
 
     def _get_dsk_folder_name_from_arguments(self):
         # Return the folder name where the DSK file is located - derived from the script arguments
