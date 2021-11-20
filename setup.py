@@ -12,7 +12,7 @@ setuptools.setup(
         long_description=long_description,
         long_description_content_type="text/markdown",
         url="https://github.com/brnomade/DeftPascalToolchain",
-        packages=setuptools.find_packages(),
+        packages=["DeftPascalToolchain"],
         install_requires=['configargparse'],
         scripts=['utils/dptcc', 'utils/dptcl'],
         classifiers=(
