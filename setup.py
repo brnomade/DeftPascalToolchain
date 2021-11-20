@@ -14,7 +14,7 @@ setuptools.setup(
         url="https://github.com/brnomade/DeftPascalToolchain",
         packages=["dptc"],
         install_requires=['configargparse'],
-        scripts=['utils/dptcc', 'utils/dptcl'],
+        scripts=['utils/dptcc.py', 'utils/dptcl.py'],
         classifiers=[
             "Development Status :: 4 - Beta",
             "Programming Language :: Python :: 3.8",
