@@ -15,12 +15,6 @@ class DeftPascalCompiler(DeftPascalToolChain):
 	def _default_tool_title():
 		return "DPTCC - DEFT PASCAL TOOL CHAIN COMPILER - FOR DEFT PASCAL II VERSION 4.1"
 
-	def compile(self):
-		self._present_section_header("STARTING COMPILER VIA EMULATOR")
-		print(self._start_emulator(LuaScript().create_compilation_script(self._args.source_file.strip().split(".")[0],
-																	     self._args.project_folder)))
-		self._retrieve_execution_log()
-
 	def run(self):
 		self._present_script_title()
 		if not self._check_source_file_requirements():
@@ -36,7 +30,11 @@ class DeftPascalCompiler(DeftPascalToolChain):
 		self.refresh_dsk_with_all_relevant_files(dependency_list)
 		self._present_section_header("DSK FILE CONTENTS")
 		self._utils.list_files_on_dsk(self._get_dsk_file_name_from_arguments(), self._args.project_folder, self._args.emulator_folder)
-		return self.compile()
+		self._present_section_header("STARTING COMPILER VIA EMULATOR")
+		print(self._start_emulator(LuaScript().create_compilation_script(self._args.source_file.strip().split(".")[0],
+																		 self._args.project_folder)))
+		self._retrieve_execution_log()
+		self.retrieve_object_file()
 
 
 if __name__ == '__main__':

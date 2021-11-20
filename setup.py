@@ -15,8 +15,6 @@ setuptools.setup(
         packages=["dptc"],
         install_requires=['configargparse'],
         scripts=['utils/dptcc.py', 'utils/dptcl.py'],
-        package_data={'dptc': ['deft_pascal_compile_script_template.lua', "deft_pascal_link_script_template.lua"]},
-        include_package_data=True,
         classifiers=[
             "Development Status :: 4 - Beta",
             "Programming Language :: Python :: 3.8",

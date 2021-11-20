@@ -10,17 +10,6 @@ from string import Template
 class LuaScript:
 
     @staticmethod
-    def create_lua_script_from_file(template_name, substitutions, output_name, output_location):
-        with open(template_name, 'r') as f:
-            src = Template(f.read())
-            result = src.substitute(substitutions)
-        filename = "{0}.lua".format(output_name)
-        f = open(os.path.join(output_location, filename), "w")
-        f.write(result)
-        f.close()
-        return filename
-
-    @staticmethod
     def create_lua_script(template, substitutions, output_name, output_location):
         src = Template(template)
         result = src.substitute(substitutions)
@@ -37,22 +26,10 @@ class LuaScript:
                                       project_folder)
 
     def create_linking_script(self, source_name, project_folder):
-        return self.create_lua_script_from_file(LuaTemplate.link_script(),
-                                                {"SOURCE": source_name, "EXEC": source_name, "LIST": source_name},
-                                                source_name,
-                                                project_folder)
-
-    def create_compilation_script_2(self, source_name, project_folder):
-        return self.create_lua_script_from_file("deft_pascal_compile_script_template.lua",
-                                                {"SOURCE": source_name, "OBJECT": source_name, "LIST": source_name},
-                                                source_name,
-                                                project_folder)
-
-    def create_linking_script_2(self, source_name, project_folder):
-        return self.create_lua_script_from_file("deft_pascal_link_script_template.lua",
-                                                {"SOURCE": source_name, "EXEC": source_name, "LIST": source_name},
-                                                source_name,
-                                                project_folder)
+        return self.create_lua_script(LuaTemplate.link_script(),
+                                      {"SOURCE": source_name, "EXEC": source_name, "LIST": source_name},
+                                      source_name,
+                                      project_folder)
 
 
 class LuaTemplate:
@@ -501,8 +478,29 @@ class DeftPascalToolChain:
             sys.exit(1)
         return oscommand
 
+    def retrieve_object_file(self):
+        # retrieve the object .OBJ file resulting from the compilation process
+        self._present_section_header("RETRIEVING OBJECT FILE")
+        print("Deleting '{0}' from '{1}'".format(self._get_obj_file_name_from_arguments(), self._args.project_folder))
+        oscommand = os.path.join(self._args.project_folder, self._get_obj_file_name_from_arguments())
+        try:
+            os.remove(oscommand)
+        except:
+            print("Warning. '{0}' not found in '{1}'.".format(self._get_obj_file_name_from_arguments(),
+                                                              self._args.project_folder))
+
+        try:
+            os.chdir(os.path.join(self._args.project_folder))
+        except:
+            print("\nAborting execution. Unable to switch to Project folder '{0}'.".format(self._args.project_folder))
+            print("Check if '{0}' is valid and present in your operating system.".format(self._args.project_folder))
+            sys.exit(1)
+
+        self._utils.copy_file_from_dsk(self._get_obj_file_name_from_arguments(), self._get_dsk_file_name_from_arguments(), self._get_dsk_folder_name_from_arguments(), self._args.emulator_folder)
+
+
     def _retrieve_execution_log(self):
-        # Retrieve the execution .LST file from the .dsk and present it on the standard  output.
+        # Retrieve the execution .LST file from the .dsk and present it on the standard output.
         self._present_section_header("RETRIEVING EXECUTION OUTPUT LOG")
         print("Deleting '{0}' from '{1}'".format(self._get_lst_file_name_from_arguments(), self._args.project_folder))
         oscommand = os.path.join(self._args.project_folder, self._get_lst_file_name_from_arguments())
