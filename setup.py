@@ -12,13 +12,13 @@ setuptools.setup(
         long_description=long_description,
         long_description_content_type="text/markdown",
         url="https://github.com/brnomade/DeftPascalToolchain",
-        packages=["DeftPascalToolchain"],
+        packages=["dptc"],
         install_requires=['configargparse'],
         scripts=['utils/dptcc', 'utils/dptcl'],
-        classifiers=(
+        classifiers=[
             "Development Status :: 4 - Beta",
             "Programming Language :: Python :: 3.8",
             "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
             "Operating System :: OS Independent",
-        ),
+        ],
 )
