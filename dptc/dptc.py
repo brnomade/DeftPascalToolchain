@@ -64,9 +64,7 @@ class LuaTemplate:
             if (current_position > 6) then
                 if process_has_ended() then 
                     emu.register_frame_done(nil, "frame")
-                    print("linkage completed")
-                    print(value_at_video_memory(end_line, end_column))
-                    print(value_at_video_memory(end_line, end_column + 1))
+                    print("Linkage completed. Errors:", value_at_video_memory(end_line, end_column), value_at_video_memory(end_line, end_column + 1))
                     manager.machine:exit()
                 end
             end
@@ -112,9 +110,7 @@ class LuaTemplate:
             if (current_position > 6) then
                 if process_has_ended() then 
                     emu.register_frame_done(nil, "frame")
-                    print("compilation completed")
-                    print(value_at_video_memory(end_line, end_column))
-                    print(value_at_video_memory(end_line, end_column + 1))
+                    print("Compilation completed. Errors:", value_at_video_memory(end_line, end_column), value_at_video_memory(end_line, end_column + 1))
                 end
             end
             if (cursor_location() == positions[current_position]) then
