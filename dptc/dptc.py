@@ -88,7 +88,7 @@ class LuaTemplate:
         current_position = 1
         positions = {137, 169, 201, 233, 268, 352}
         end_line = 11
-        end_column = 23
+        end_column = 19
         background = 96
         inputs = {"$SOURCE/PAS:1{ENTER}", "$OBJECT/OBJ:1{ENTER}", "$LIST/LST:1{ENTER}", "N{ENTER}", "{ENTER}"}
         
