@@ -250,7 +250,11 @@ class DeftPascalToolChain:
 
     def _check_source_file_requirements(self):
 
-        if self._args.source_file.count(".") != 1:
+        if ".pas" not in self._args.source_file.lower():
+            # extension has to be PAS
+            print("\nAborting execution. {0}.".format("Source filename must have 'PAS' extension"))
+            return False
+        elif self._args.source_file.count(".") != 1:
             # extension is present
             print("\nAborting execution. {0}.".format("Source filename must have an extension"))
             return False
