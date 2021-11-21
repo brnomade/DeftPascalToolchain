@@ -539,7 +539,7 @@ class DeftPascalToolChain:
 
         self._utils.copy_file_from_dsk(self._get_obj_file_name_from_arguments(), self._get_dsk_file_name_from_arguments(), self._get_dsk_folder_name_from_arguments(), self._args.emulator_folder)
 
-    def retrieve_executable_file(self):
+    def retrieve_binary_file(self):
         # retrieve the executable .BIN file resulting from the linking process
         self._present_section_header("RETRIEVING EXECUTABLE FILE")
         print("Deleting '{0}' from '{1}'".format(self._get_bin_file_name_from_arguments(), self._args.project_folder))

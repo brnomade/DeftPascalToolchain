@@ -30,7 +30,6 @@ class DeftPascalLinker(DeftPascalToolChain):
                                                                      self._args.project_folder)))
         self._retrieve_execution_log()
         self.retrieve_binary_file()
-        return self.link()
 
 
 if __name__ == '__main__':
