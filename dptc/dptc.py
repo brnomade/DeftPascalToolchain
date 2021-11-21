@@ -234,6 +234,15 @@ class DeftPascalToolChain:
         else:
             return True
 
+    def _check_object_file_requirements(self):
+
+        if not os.path.isfile(self._get_obj_file_name_from_arguments()):
+            # object file must exist
+            print("\nAborting execution. {0}.".format("Object filename not found"))
+            return False
+        else:
+            return True
+
     def _navigate_dependency_list(self, a_file_name):
         # recursive function to navigate all library files referenced by the main source file
         sourcefile = os.path.join(self._args.lib_folder, a_file_name)
@@ -409,6 +418,10 @@ class DeftPascalToolChain:
         # Return a PRJ file name derived from the script arguments
         return "{0}.PRJ".format(self._args.source_file.strip().split(".")[0])
 
+    def _get_bin_file_name_from_arguments(self):
+        # Return a BIN file name derived from the script arguments
+        return "{0}.BIN".format(self._args.source_file.strip().split(".")[0])
+
     def _get_dsk_file_name_from_arguments(self):
         # Return a DSK file name derived from the script arguments
         return "{0}.dsk".format(self._args.dsk_file.strip().split(".")[0])
@@ -526,6 +539,25 @@ class DeftPascalToolChain:
 
         self._utils.copy_file_from_dsk(self._get_obj_file_name_from_arguments(), self._get_dsk_file_name_from_arguments(), self._get_dsk_folder_name_from_arguments(), self._args.emulator_folder)
 
+    def retrieve_executable_file(self):
+        # retrieve the executable .BIN file resulting from the linking process
+        self._present_section_header("RETRIEVING EXECUTABLE FILE")
+        print("Deleting '{0}' from '{1}'".format(self._get_bin_file_name_from_arguments(), self._args.project_folder))
+        oscommand = os.path.join(self._args.project_folder, self._get_bin_file_name_from_arguments())
+        try:
+            os.remove(oscommand)
+        except:
+            print("Warning. '{0}' not found in '{1}'.".format(self._get_bin_file_name_from_arguments(),
+                                                              self._args.project_folder))
+
+        try:
+            os.chdir(os.path.join(self._args.project_folder))
+        except:
+            print("\nAborting execution. Unable to switch to Project folder '{0}'.".format(self._args.project_folder))
+            print("Check if '{0}' is valid and present in your operating system.".format(self._args.project_folder))
+            sys.exit(1)
+
+        self._utils.copy_file_from_dsk(self._get_bin_file_name_from_arguments(), self._get_dsk_file_name_from_arguments(), self._get_dsk_folder_name_from_arguments(), self._args.emulator_folder)
 
     def _retrieve_execution_log(self):
         # Retrieve the execution .LST file from the .dsk and present it on the standard output.

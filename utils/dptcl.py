@@ -5,6 +5,7 @@
 import configargparse
 from dptc.dptc import DeftPascalToolChain
 from dptc.dptc import LuaScript
+import sys
 
 
 class DeftPascalLinker(DeftPascalToolChain):
@@ -13,20 +14,22 @@ class DeftPascalLinker(DeftPascalToolChain):
     def _default_tool_title():
         return "DPTCL - DEFT PASCAL TOOL CHAIN LINKER - FOR DEFT PASCAL II VERSION 4.1"
 
-    def link(self):
+    def run(self):
+        self._present_script_title()
+        if not self._check_object_file_requirements():
+            sys.exit(1)
+        dependency_list = self.process_source_code_dependencies()
+        self.list_files_present_in_project_folder()
+        self._present_section_header("CREATE NEW DSK FILE")
+        self._utils.create_dsk_file(self._get_dsk_file_name_from_arguments(), self._args.project_folder, self._args.emulator_folder)
+        self.refresh_dsk_with_relevant_files_for_linking([])
+        self._present_section_header("DSK FILE CONTENTS")
+        self._utils.list_files_on_dsk(self._get_dsk_file_name_from_arguments(), self._args.project_folder, self._args.emulator_folder)
         self._present_section_header("STARTING LINKER VIA EMULATOR")
         print(self._start_emulator(LuaScript().create_linking_script(self._args.source_file.strip().split(".")[0],
                                                                      self._args.project_folder)))
         self._retrieve_execution_log()
-
-    def run(self):
-        self._present_script_title()
-        self.list_files_present_in_project_folder()
-        self._present_section_header("DSK FILE CONTENTS")
-        self._utils.list_files_on_dsk(self._get_dsk_file_name_from_arguments(), self._args.project_folder, self._args.emulator_folder)
-        self.refresh_dsk_with_relevant_files_for_linking([])
-        self._present_section_header("DSK FILE CONTENTS")
-        self._utils.list_files_on_dsk(self._get_dsk_file_name_from_arguments(), self._args.project_folder, self._args.emulator_folder)
+        self.retrieve_binary_file()
         return self.link()
 
 
