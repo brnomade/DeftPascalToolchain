@@ -543,6 +543,7 @@ class DeftPascalToolChain:
         oscommand = oscommand + " -autoboot_script " + os.path.join(self._args.project_folder, boot_script_file)
         try:
             result = subprocess.run(oscommand, capture_output=True, text=True)
+            print(result.stdout)
         except:
             print("\nAborting execution. Unable to start emulator.")
             print("Check if '{0}' is located in '{1}'.".format(self._args.emulator_app, self._args.compiler_folder))
