@@ -110,7 +110,7 @@ class LuaTemplate:
             if (current_position > 5) then
                 if process_has_ended() then 
                     emu.register_frame_done(nil, "frame")
-                    print("Compilation completed. Errors:", {value_at_video_memory(end_line, end_column), value_at_video_memory(end_line, end_column + 1)})
+                    print("Compilation completed. Errors:", value_at_video_memory(end_line, end_column), value_at_video_memory(end_line, end_column + 1))
                     manager.machine:exit()
                 end
             end
