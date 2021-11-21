@@ -24,7 +24,7 @@ class DeftPascalLinker(DeftPascalToolChain):
         self.list_files_present_in_project_folder()
         self._present_section_header("DSK FILE CONTENTS")
         self._utils.list_files_on_dsk(self._get_dsk_file_name_from_arguments(), self._args.project_folder, self._args.emulator_folder)
-        self.refresh_dsk_with_all_relevant_files([])
+        self.refresh_dsk_with_relevant_files_for_linking([])
         self._present_section_header("DSK FILE CONTENTS")
         self._utils.list_files_on_dsk(self._get_dsk_file_name_from_arguments(), self._args.project_folder, self._args.emulator_folder)
         return self.link()

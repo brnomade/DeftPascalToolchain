@@ -421,35 +421,63 @@ class DeftPascalToolChain:
         # Return the folder name where the DSK file is located - derived from the script arguments
         return self._args.project_folder.strip()
 
-    def refresh_dsk_with_all_relevant_files(self, a_dependency_list):
+    def refresh_dsk_with_relevant_files_for_compiling(self, a_dependency_list):
         self._present_section_header("REFRESHING DSK FILE")
+
         source_file_name = self._get_source_file_name_from_arguments()
-        prj_file_name = self._get_prj_file_name_from_arguments()
+        # prj_file_name = self._get_prj_file_name_from_arguments()
         a_dsk_file_name = self._get_dsk_file_name_from_arguments()
-        lst_file_name = self._get_lst_file_name_from_arguments()
-        obj_file_name = self._get_obj_file_name_from_arguments()
+        # lst_file_name = self._get_lst_file_name_from_arguments()
+        # obj_file_name = self._get_obj_file_name_from_arguments()
 
         # refresh the source file
         self._utils.delete_file_in_dsk(source_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
         self._utils.copy_file_to_dsk(source_file_name, self._args.project_folder, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
 
         # refresh the prj file
-        self._utils.delete_file_in_dsk(prj_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
-        if a_dependency_list:
-            self._utils.copy_file_to_dsk(prj_file_name, self._args.project_folder, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
+        # self._utils.delete_file_in_dsk(prj_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
+        # if a_dependency_list:
+        #    self._utils.copy_file_to_dsk(prj_file_name, self._args.project_folder, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
 
         # refresh all libraries
-        print("dependency list" + str(a_dependency_list))
+        for a_lib_file_name in a_dependency_list:
+            self._utils.delete_file_in_dsk(a_lib_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
+            self._utils.copy_file_to_dsk(a_lib_file_name, self._args.project_folder, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
+
+        # delete the lst file
+        # self._utils.delete_file_in_dsk(lst_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
+
+        # delete the obj file
+        # self._utils.delete_file_in_dsk(obj_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
+
+    def refresh_dsk_with_relevant_files_for_linking(self, a_dependency_list):
+        self._present_section_header("REFRESHING DSK FILE")
+        # source_file_name = self._get_source_file_name_from_arguments()
+        prj_file_name = self._get_prj_file_name_from_arguments()
+        a_dsk_file_name = self._get_dsk_file_name_from_arguments()
+        lst_file_name = self._get_lst_file_name_from_arguments()
+        obj_file_name = self._get_obj_file_name_from_arguments()
+
+        # refresh the source file
+        # self._utils.delete_file_in_dsk(source_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
+        # self._utils.copy_file_to_dsk(source_file_name, self._args.project_folder, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
+
+        # refresh the prj file
+        self._utils.delete_file_in_dsk(prj_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
+        self._utils.copy_file_to_dsk(prj_file_name, self._args.project_folder, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
+
+        # refresh the OBJ file
+        self._utils.delete_file_in_dsk(obj_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
+        self._utils.copy_file_to_dsk(obj_file_name, self._args.project_folder, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
+
+        # refresh all libraries
+        # TODO: Here it needs to refresh the OBJ files
         for a_lib_file_name in a_dependency_list:
             self._utils.delete_file_in_dsk(a_lib_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
             self._utils.copy_file_to_dsk(a_lib_file_name, self._args.project_folder, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
 
         # delete the lst file
         self._utils.delete_file_in_dsk(lst_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
-
-        # delete the obj file
-        self._utils.delete_file_in_dsk(obj_file_name, a_dsk_file_name, self._args.project_folder, self._args.emulator_folder)
-
 
     def _start_emulator(self, boot_script_file):
         # Start mame as a parallel process and running independently from the script
