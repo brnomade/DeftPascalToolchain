@@ -32,18 +32,12 @@ class DeftPascalCompiler(DeftPascalToolChain):
 		self._utils.list_files_on_dsk(self._get_dsk_file_name_from_arguments(), self._args.project_folder, self._args.emulator_folder)
 		self._present_section_header("STARTING COMPILER VIA EMULATOR")
 		log = self._start_emulator(LuaScript().create_compilation_script(self._args.source_file.strip().split(".")[0], self._args.project_folder))
-		self._retrieve_execution_log()
 		self.retrieve_object_file()
-		regex = r"(\[MAME\]>\sCompilation\scompleted\.\sErrors\:\s)([0-9]*)\s([0-9]*)"
-		matches = re.findall(regex, log, re.MULTILINE)
-		if len(matches) != 1:
-			print("Warning. Couldn't identify compiler error information output.")
-			print(matches)
+		error_count = self._retrieve_execution_log()
+		if error_count > 0:
+			print("Compilation failed. Errors found: {0}".format(error_count))
 		else:
-			left = str(int(matches[0][1]) - 112)
-			right = str(int(matches[0][2]) - 112) if matches[0][2] != 96 else ""
-			error_count = int("{0}{1}".format(left, right))
-			print("Compilation errors found: {0}".format(error_count))
+			print("Compilation completed. No errors found.")
 
 
 if __name__ == '__main__':

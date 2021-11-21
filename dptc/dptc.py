@@ -637,7 +637,8 @@ class DeftPascalToolChain:
         regex = r"TOTAL\sERRORS[\s]*([0-9]*)"
         matches = re.findall(regex, "\n".join(lines), re.MULTILINE)
         if len(matches) != 1:
-            print("Warning. Couldn't identify compiler error information output.")
+            print("Warning. Couldn't identify compiler error output.")
             print(matches)
+            return 0
         else:
-            print("\nCompilation errors found: {0}\n".format(matches[0][0]))
+            return matches[0][0]
