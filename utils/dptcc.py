@@ -35,9 +35,9 @@ class DeftPascalCompiler(DeftPascalToolChain):
 		self.retrieve_object_file()
 		error_count = self._retrieve_execution_log()
 		if error_count > 0:
-			print("Compilation failed. Errors found: {0}".format(error_count))
+			print("\n\nCompilation failed. Errors found: {0}\n\n".format(error_count))
 		else:
-			print("Compilation completed. No errors found.")
+			print("\n\nCompilation completed. No errors found.\n\n")
 
 
 if __name__ == '__main__':
