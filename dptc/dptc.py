@@ -84,7 +84,7 @@ class LuaTemplate:
     def compile_script(cls):
         return """
         current_position = 1
-        positions = {137, 169, 201, 233, 268, 352}
+        positions = {137, 169, 201, 233, 268}
         end_line = 11
         end_column = 19
         background = 96
@@ -107,10 +107,11 @@ class LuaTemplate:
         end
         
         function on_frame_event()
-            if (current_position > 6) then
+            if (current_position > 5) then
                 if process_has_ended() then 
                     emu.register_frame_done(nil, "frame")
-                    print("Compilation completed. Errors:", value_at_video_memory(end_line, end_column), value_at_video_memory(end_line, end_column + 1))
+                    print("Compilation completed. Errors:", {value_at_video_memory(end_line, end_column), value_at_video_memory(end_line, end_column + 1)})
+                    manager.machine:exit()
                 end
             end
             if (cursor_location() == positions[current_position]) then
