@@ -34,7 +34,7 @@ class DeftPascalCompiler(DeftPascalToolChain):
 		log = self._start_emulator(LuaScript().create_compilation_script(self._args.source_file.strip().split(".")[0], self._args.project_folder))
 		self._retrieve_execution_log()
 		self.retrieve_object_file()
-		regex = r"(\[MAME\]> Compilation completed\.\sErrors\:\s)([0-9]*)\s([0-9]*)"
+		regex = r"(\[MAME\]>\sCompilation\scompleted\.\sErrors\:\s)([0-9]*)\s([0-9]*)"
 		matches = re.findall(regex, log, re.MULTILINE)
 		if len(matches) != 1:
 			print("Warning. Couldn't identify compiler error information output.")
