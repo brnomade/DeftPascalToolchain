@@ -39,6 +39,9 @@ class LuaTemplate:
         return """
         current_position = 1
         positions = {145, 177, 209, 241, 273, 305}
+        end_l = 11
+        end_c = 23
+        background = 96
         inputs = {"{ENTER}", "$LIST/LST:1{ENTER}", "$EXEC/BIN:1{ENTER}", "Y{ENTER}", "N{ENTER}", "$SOURCE/PRJ:1{ENTER}"}
         
         function cursor_location()
@@ -47,11 +50,24 @@ class LuaTemplate:
             return 256 * mem:read_u8(136) + mem:read_u8(137) - 1024
         end
         
+        function value_at_video_memory(lin, col)
+            cpu = manager.machine.devices[":maincpu"]
+            mem = cpu.spaces["program"]
+            return mem:read_u8(1024 + ((lin - 1) * 32) + col - 1)
+        end
+
+        function process_has_ended()
+            return value_at_video_memory(end_l, end_c) ~= background
+        
         function on_frame_event()
             if (current_position > 6) then
-                emu.register_frame_done(nil, "frame")
-                print("linkage completed")
-                manager.machine:exit()
+                if process_has_ended() then 
+                    emu.register_frame_done(nil, "frame")
+                    print("linkage completed")
+                    print(value_at_video_memory(end_l, end_c)
+                    print(value_at_video_memory(end_l, end_c + 1)
+                    manager.machine:exit()
+                end
             end
             if (cursor_location() == positions[current_position]) then
                 keyboard = manager.machine.natkeyboard
@@ -70,6 +86,9 @@ class LuaTemplate:
         return """
         current_position = 1
         positions = {137, 169, 201, 233, 268, 352}
+        end_l = 11
+        end_c = 23
+        background = 96
         inputs = {"$SOURCE/PAS:1{ENTER}", "$OBJECT/OBJ:1{ENTER}", "$LIST/LST:1{ENTER}", "N{ENTER}", "{ENTER}"}
         
         function cursor_location()
@@ -78,11 +97,23 @@ class LuaTemplate:
             return 256 * mem:read_u8(136) + mem:read_u8(137) - 1024
         end
         
+        function value_at_video_memory(lin, col)
+            cpu = manager.machine.devices[":maincpu"]
+            mem = cpu.spaces["program"]
+            return mem:read_u8(1024 + ((lin - 1) * 32) + col - 1)
+        end
+
+        function process_has_ended()
+            return value_at_video_memory(end_l, end_c) ~= background
+        
         function on_frame_event()
             if (current_position > 6) then
-                emu.register_frame_done(nil, "frame")
-                print("compilation completed")
-                manager.machine:exit()
+                if process_has_ended() then 
+                    emu.register_frame_done(nil, "frame")
+                    print("compilation completed")
+                    print(value_at_video_memory(end_l, end_c)
+                    print(value_at_video_memory(end_l, end_c + 1)
+                end
             end
             if (cursor_location() == positions[current_position]) then
                 keyboard = manager.machine.natkeyboard
