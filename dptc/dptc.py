@@ -641,4 +641,4 @@ class DeftPascalToolChain:
             print(matches)
             return 0
         else:
-            return matches[0][0]
+            return int(matches[0][0])
