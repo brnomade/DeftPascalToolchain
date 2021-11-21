@@ -39,8 +39,8 @@ class LuaTemplate:
         return """
         current_position = 1
         positions = {145, 177, 209, 241, 273, 305}
-        end_l = 11
-        end_c = 23
+        end_line = 11
+        end_column = 23
         background = 96
         inputs = {"{ENTER}", "$LIST/LST:1{ENTER}", "$EXEC/BIN:1{ENTER}", "Y{ENTER}", "N{ENTER}", "$SOURCE/PRJ:1{ENTER}"}
         
@@ -57,15 +57,16 @@ class LuaTemplate:
         end
 
         function process_has_ended()
-            return value_at_video_memory(end_l, end_c) ~= background
+            return value_at_video_memory(end_line, end_column) ~= background
+        end
         
         function on_frame_event()
             if (current_position > 6) then
                 if process_has_ended() then 
                     emu.register_frame_done(nil, "frame")
                     print("linkage completed")
-                    print(value_at_video_memory(end_l, end_c)
-                    print(value_at_video_memory(end_l, end_c + 1)
+                    print(value_at_video_memory(end_line, end_column)
+                    print(value_at_video_memory(end_line, end_column + 1)
                     manager.machine:exit()
                 end
             end
@@ -86,8 +87,8 @@ class LuaTemplate:
         return """
         current_position = 1
         positions = {137, 169, 201, 233, 268, 352}
-        end_l = 11
-        end_c = 23
+        end_line = 11
+        end_column = 23
         background = 96
         inputs = {"$SOURCE/PAS:1{ENTER}", "$OBJECT/OBJ:1{ENTER}", "$LIST/LST:1{ENTER}", "N{ENTER}", "{ENTER}"}
         
@@ -104,15 +105,16 @@ class LuaTemplate:
         end
 
         function process_has_ended()
-            return value_at_video_memory(end_l, end_c) ~= background
+            return value_at_video_memory(end_line, end_column) ~= background
+        end
         
         function on_frame_event()
             if (current_position > 6) then
                 if process_has_ended() then 
                     emu.register_frame_done(nil, "frame")
                     print("compilation completed")
-                    print(value_at_video_memory(end_l, end_c)
-                    print(value_at_video_memory(end_l, end_c + 1)
+                    print(value_at_video_memory(end_line, end_column)
+                    print(value_at_video_memory(end_line, end_column + 1)
                 end
             end
             if (cursor_location() == positions[current_position]) then
