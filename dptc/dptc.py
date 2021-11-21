@@ -235,9 +235,9 @@ class DeftPascalToolChain:
             return True
 
     def _check_object_file_requirements(self):
-
-        if not os.path.isfile(self._get_obj_file_name_from_arguments()):
+        if not os.path.isfile(os.path.join(self._args.project_folder, self._get_obj_file_name_from_arguments())):
             # object file must exist
+            print(os.path.join(self._args.project_folder, self._get_obj_file_name_from_arguments()))
             print("\nAborting execution. {0}.".format("Object filename not found"))
             return False
         else:
