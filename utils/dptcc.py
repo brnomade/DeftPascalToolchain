@@ -48,6 +48,7 @@ if __name__ == '__main__':
 	parser.add_argument("--lib_folder", required=True, help="Folder name where library files are located.")
 	parser.add_argument("--compiler_disk", required=True, help="DSK file containing the DEFT PASCAL COMPILER. File extension is required. File path is not needed.")
 	parser.add_argument("--compiler_folder", required=True, help="Folder name where the compiler file is located.")
+	parser.add_argument("--compiler_version", required=False, choices=["3.3", "4.1"], default="3.3", type=str, help="Version of the compiler to use.")
 	parser.add_argument("--emulator_folder", required=True, help="Folder name where mame emulator is installed.")
 	parser.add_argument("--emulator_app", required=True, help="mame emulator executable.")
 	parser.add_argument("--emulator_rom", required=True, help="rom to be used.")
