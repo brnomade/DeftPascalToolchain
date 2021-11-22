@@ -31,7 +31,7 @@ class DeftPascalCompiler(DeftPascalToolChain):
 		self._present_section_header("DSK FILE CONTENTS")
 		self._utils.list_files_on_dsk(self._get_dsk_file_name_from_arguments(), self._args.project_folder, self._args.emulator_folder)
 		self._present_section_header("STARTING COMPILER VIA EMULATOR")
-		log = self._start_emulator(LuaScript().create_compilation_script(self._args.source_file.strip().split(".")[0], self._args.project_folder))
+		log = self._start_emulator(LuaScript().create_compilation_script(self._args.source_file.strip().split(".")[0], self._args.project_folder, self._args.compiler_version))
 		self.retrieve_object_file()
 		error_count = self._retrieve_execution_log()
 		if error_count > 0:
