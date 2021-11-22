@@ -118,7 +118,7 @@ class LuaTemplate:
         end
         
         function on_frame_event()
-            if (current_position > table.getn(positions)) then
+            if (current_position > #positions) then
                 if process_has_ended() and (cursor_location() == exit_position) then
                         emu.register_frame_done(nil, "frame")
                         print("Process completed. Errors found:", value_at_video_memory(error_line, error_column), value_at_video_memory(error_line, error_column + 1))
@@ -133,9 +133,9 @@ class LuaTemplate:
             end
         end
         
-        emu.register_frame_done(on_frame_event, "frame")
         coco = manager.machine.natkeyboard
         coco:post_coded("NEW{ENTER}PCLEAR1{ENTER}FILES0,0{ENTER}CLEAR 16,4999{ENTER}")
+        emu.register_frame_done(on_frame_event, "frame")
         """
 
 
