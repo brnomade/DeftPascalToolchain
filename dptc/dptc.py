@@ -118,7 +118,7 @@ class LuaTemplate:
         end
         
         function on_frame_event()
-            if (current_position > 5) then
+            if (current_position > table.getn(positions)) then
                 if process_has_ended() and (cursor_location() == exit_position) then
                         emu.register_frame_done(nil, "frame")
                         print("Process completed. Errors found:", value_at_video_memory(error_line, error_column), value_at_video_memory(error_line, error_column + 1))
