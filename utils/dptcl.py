@@ -27,7 +27,8 @@ class DeftPascalLinker(DeftPascalToolChain):
         self._utils.list_files_on_dsk(self._get_dsk_file_name_from_arguments(), self._args.project_folder, self._args.emulator_folder)
         self._present_section_header("STARTING LINKER VIA EMULATOR")
         print(self._start_emulator(LuaScript().create_linking_script(self._args.source_file.strip().split(".")[0],
-                                                                     self._args.project_folder)))
+                                                                     self._args.project_folder,
+                                                                     self._args.compiler_version)))
         self._retrieve_execution_log()
         self.retrieve_binary_file()
 
