@@ -538,7 +538,7 @@ class DeftPascalToolChain:
             sys.exit(1)
         oscommand = self._utils.safepath(os.path.join(self._args.emulator_folder, self._args.emulator_app))
         oscommand = oscommand + " " + self._args.emulator_rom
-        oscommand = oscommand + ' -window -keepaspect -natural -console -skip_gameinfo'
+        oscommand = oscommand + ' -window -keepaspect -natural -console -skip_gameinfo -ramsize 64K'
         oscommand = oscommand + " -flop1 " + self._utils.safepath(os.path.join(self._args.compiler_folder, self._args.compiler_disk))
         oscommand = oscommand + " -flop2 " + self._utils.safepath(os.path.join(self._args.project_folder, self._get_dsk_file_name_from_arguments()))
         oscommand = oscommand + " -speed {0}".format(self._args.emulator_speed)
