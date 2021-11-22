@@ -37,36 +37,46 @@ class LuaTemplate:
 
     @classmethod
     def link_script(cls, deft_pascal_version):
-        return "{0}\n{1}".format(cls.link_script_parameters(deft_pascal_version), cls.link_script_base())
+        return "{0}\n{1}\n{2}".format(cls.link_script_head(deft_pascal_version), cls.base_script(), cls.link_script_tail())
 
     @classmethod
     def compile_script(cls, deft_pascal_version):
-        return "{0}\n{1}".format(cls.compile_script_parameters(deft_pascal_version), cls.compile_script_base())
+        return "{0}\n{1}\n{2}".format(cls.compile_script_head(deft_pascal_version), cls.base_script(), cls.compile_script_tail())
 
     @classmethod
-    def link_script_parameters(cls, deft_pascal_version):
+    def link_script_head(cls, deft_pascal_version):
         if deft_pascal_version == "4.1":
             return """
             positions = {145, 177, 209, 241, 273, 305}
-            end_line = 11
-            end_column = 23
+            error_line = 11
+            error_column = 23
+            inputs = {"{ENTER}", "$LIST/LST:1{ENTER}", "$EXEC/BIN:1{ENTER}", "Y{ENTER}", "N{ENTER}", "$SOURCE/PRJ:1{ENTER}"}
             """
         elif deft_pascal_version == "3.3":
             return """
-            positions = {145, 177, 209, 241, 273, 305}
-            end_line = 11
-            end_column = 23
+            positions = {113, 145, 177, 209, 241, 273}
+            error_line = 14
+            error_column = 23
+            exit_position = 480
+            inputs = {"{ENTER}", "$LIST/LST:1{ENTER}", "$EXEC/BIN:1{ENTER}", "Y{ENTER}", "N{ENTER}", "$SOURCE/PRJ:1{ENTER}"}
             """
         else:
             raise ValueError("Unknown compiler version: '{0}'".format(deft_pascal_version))
 
     @classmethod
-    def compile_script_parameters(cls, deft_pascal_version):
+    def link_script_tail(cls):
+        return """
+        coco:post_coded("LOADM{QUOTE}LINKER{QUOTE}:EXEC{ENTER}")
+        """
+
+    @classmethod
+    def compile_script_head(cls, deft_pascal_version):
         if deft_pascal_version == "4.1":
             return """
             positions = {137, 169, 201, 233, 268}
             error_line = 11
             error_column = 19
+            inputs = {"$SOURCE/PAS:1{ENTER}", "$OBJECT/OBJ:1{ENTER}", "$LIST/LST:1{ENTER}", "N{ENTER}", "{ENTER}"}
             """
         elif deft_pascal_version == "3.3":
             return """
@@ -74,59 +84,22 @@ class LuaTemplate:
             error_line = 10
             error_column = 19
             exit_position = 352
+            inputs = {"$SOURCE/PAS:1{ENTER}", "$OBJECT/OBJ:1{ENTER}", "$LIST/LST:1{ENTER}", "N{ENTER}", "{ENTER}"}
             """
         else:
             raise ValueError("Unknown compiler version: '{0}'".format(deft_pascal_version))
 
     @classmethod
-    def link_script_base(cls):
+    def compile_script_tail(cls):
         return """
-        current_position = 1
-        background = 96
-        inputs = {"{ENTER}", "$LIST/LST:1{ENTER}", "$EXEC/BIN:1{ENTER}", "Y{ENTER}", "N{ENTER}", "$SOURCE/PRJ:1{ENTER}"}
-        
-        function cursor_location()
-            cpu = manager.machine.devices[":maincpu"]
-            mem = cpu.spaces["program"]
-            return 256 * mem:read_u8(136) + mem:read_u8(137) - 1024
-        end
-        
-        function value_at_video_memory(lin, col)
-            cpu = manager.machine.devices[":maincpu"]
-            mem = cpu.spaces["program"]
-            return mem:read_u8(1024 + ((lin - 1) * 32) + col - 1)
-        end
-
-        function process_has_ended()
-            return value_at_video_memory(end_line, end_column) ~= background
-        end
-        
-        function on_frame_event()
-            if (current_position > 6) then
-                if process_has_ended() then 
-                    emu.register_frame_done(nil, "frame")
-                    print("Linkage completed. Errors:", value_at_video_memory(end_line, end_column), value_at_video_memory(end_line, end_column + 1))
-                    manager.machine:exit()
-                end
-            end
-            if (cursor_location() == positions[current_position]) then
-                keyboard = manager.machine.natkeyboard
-                coco:post_coded(inputs[current_position])
-                current_position = current_position + 1
-            end
-        end
-        
-        emu.register_frame_done(on_frame_event, "frame")
-        coco = manager.machine.natkeyboard
-        coco:post_coded("LOADM{QUOTE}LINKER{QUOTE}:EXEC{ENTER}")
+        coco:post_coded("LOADM{QUOTE}PASCAL{QUOTE}:EXEC{ENTER}")
         """
 
     @classmethod
-    def compile_script_base(cls):
+    def base_script(cls):
         return """
         current_position = 1
         background = 96
-        inputs = {"$SOURCE/PAS:1{ENTER}", "$OBJECT/OBJ:1{ENTER}", "$LIST/LST:1{ENTER}", "N{ENTER}", "{ENTER}"}
         
         function cursor_location()
             cpu = manager.machine.devices[":maincpu"]
@@ -148,7 +121,7 @@ class LuaTemplate:
             if (current_position > 5) then
                 if process_has_ended() and (cursor_location() == exit_position) then
                         emu.register_frame_done(nil, "frame")
-                        print("Compilation completed. Errors:", value_at_video_memory(error_line, error_column), value_at_video_memory(error_line, error_column + 1))
+                        print("Process completed. Errors found:", value_at_video_memory(error_line, error_column), value_at_video_memory(error_line, error_column + 1))
                         manager.machine:exit()
                 end
             else
@@ -162,7 +135,7 @@ class LuaTemplate:
         
         emu.register_frame_done(on_frame_event, "frame")
         coco = manager.machine.natkeyboard
-        coco:post_coded("NEW{ENTER}PCLEAR1{ENTER}FILES0,0{ENTER}CLEAR 16,4999{ENTER}LOADM{QUOTE}PASCAL{QUOTE}:EXEC{ENTER}")
+        coco:post_coded("NEW{ENTER}PCLEAR1{ENTER}FILES0,0{ENTER}CLEAR 16,4999{ENTER}")
         """
 
 
