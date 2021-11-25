@@ -322,15 +322,17 @@ class DeftPascalToolChain:
             print("\nAborting execution. Source file '{0}' not found.".format(os.path.join(self._args.project_folder.strip(), self._args.source_file.strip())))
             sys.exit(1)
         import_list = list()
-        index = 0
-        while lines[index].startswith("%"):
-            if "%C" in lines[index]:
-                print("found in line {0}".format(index))
-                library = lines[index].split("%C")[1].split("/")[0]
-                extension = lines[index].split("%C")[1].split("/")[1].split(":")[0]
+        # index = 0
+        for line in lines:
+            # while lines[index].startswith("%"):
+            # if "%C" in lines[index]:
+            if line.startswith("%C"):
+                print("found in line {0}".format(line))
+                library = line.split("%C")[1].split("/")[0]
+                extension = line.split("%C")[1].split("/")[1].split(":")[0]
                 import_list.append(library + "." + extension)
-                print(library, extension, import_list)
-            index = index + 1
+                print(library, extension)
+            # index = index + 1
         return import_list
 
     def _get_indirect_dependency_list(self, a_list):
