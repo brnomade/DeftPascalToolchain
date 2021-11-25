@@ -329,13 +329,13 @@ class DeftPascalToolChain:
             if line.startswith("%C"):
                 print("found '{0}'".format(line))
                 if "/" in line:
-                    library = line.split("%C")[1].split("/")[0]
+                    library = line.split("%C")[1].split("/")[0].strip()
                     if ":" in line:
-                        extension = line.split("%C")[1].split("/")[1].split(":")[0]
+                        extension = line.split("%C")[1].split("/")[1].split(":")[0].strip()
                     else:
-                        extension = line.split("%C")[1].split("/")[1]
+                        extension = line.split("%C")[1].split("/")[1].strip()
                 else:
-                    library = line.split("%C")[1]
+                    library = line.split("%C")[1].strip()
                     extension = "PAS"
                 import_list.append(library + "." + extension)
                 print(library, extension)
