@@ -374,41 +374,47 @@ class DeftPascalToolChain:
     def _copy_absent_files_from_library_to_project_folder(self, library_list):
         # refresh only the files not present in the project folder
         for lib_file in library_list:
-            target_file = os.path.join(self._args.project_folder, lib_file)
-            if os.path.isfile(target_file):
-                print("Copying '{0}' ... file already exists in '{1}'".format(lib_file, self._args.project_folder))
+            if ".PAS" in lib_file:
+                print("... skipping source '{0}'".format(lib_file))
             else:
-                print("Copying '{0}' ... from '{1}'".format(lib_file, self._args.lib_folder))
-                source_file = os.path.join(self._args.lib_folder, lib_file)
-                try:
-                    shutil.copy(source_file, target_file)
-                except FileNotFoundError:
-                    print("\nAborting execution. Couldn't refresh from repository. Library file not found.")
-                    print("'{0}' not found in '{1}'".format(lib_file, self._args.lib_folder))
-                    sys.exit(1)
+                target_file = os.path.join(self._args.project_folder, lib_file)
+                if os.path.isfile(target_file):
+                    print("Copying '{0}' ... file already exists in '{1}'".format(lib_file, self._args.project_folder))
+                else:
+                    print("Copying '{0}' ... from '{1}'".format(lib_file, self._args.lib_folder))
+                    source_file = os.path.join(self._args.lib_folder, lib_file)
+                    try:
+                        shutil.copy(source_file, target_file)
+                    except FileNotFoundError:
+                        print("\nAborting execution. Couldn't refresh from repository. Library file not found.")
+                        print("'{0}' not found in '{1}'".format(lib_file, self._args.lib_folder))
+                        sys.exit(1)
 
     def _copy_newer_files_from_library_to_project_folder(self, library_list):
         # refresh only the files that are newer in the repository
         for lib_file in library_list:
-            source_file = os.path.join(self._args.lib_folder, lib_file)
-            target_file = os.path.join(self._args.project_folder, lib_file)
-            try:
-                older = (os.stat(target_file).st_mtime > os.stat(source_file).st_mtime)
-            except FileNotFoundError:
-                print("\nAborting execution. Couldn't validate files. Library file not found.")
-                print("'{0}' not found in '{1}'.".format(lib_file, self._args.lib_folder))
-                print("'{0}' not found in '{1}'.".format(lib_file, self._args.project_folder))
-                sys.exit(1)
-            if older:
-                print("'{0}' already matches the repository file on '{0}'.".format(lib_file, self._args.lib_folder))
+            if ".PAS" in lib_file:
+                print("... skipping source '{0}'".format(lib_file))
             else:
-                print("Copying '{0}' from '{1}'.".format(lib_file, self._args.lib_folder))
+                source_file = os.path.join(self._args.lib_folder, lib_file)
+                target_file = os.path.join(self._args.project_folder, lib_file)
                 try:
-                    shutil.copy(source_file, target_file)
+                    older = (os.stat(target_file).st_mtime > os.stat(source_file).st_mtime)
                 except FileNotFoundError:
-                    print("\nAborting execution. Couldn't refresh from repository. Library file not found.")
+                    print("\nAborting execution. Couldn't validate files. Library file not found.")
                     print("'{0}' not found in '{1}'.".format(lib_file, self._args.lib_folder))
+                    print("'{0}' not found in '{1}'.".format(lib_file, self._args.project_folder))
                     sys.exit(1)
+                if older:
+                    print("'{0}' already matches the repository file on '{0}'.".format(lib_file, self._args.lib_folder))
+                else:
+                    print("Copying '{0}' from '{1}'.".format(lib_file, self._args.lib_folder))
+                    try:
+                        shutil.copy(source_file, target_file)
+                    except FileNotFoundError:
+                        print("\nAborting execution. Couldn't refresh from repository. Library file not found.")
+                        print("'{0}' not found in '{1}'.".format(lib_file, self._args.lib_folder))
+                        sys.exit(1)
 
     def refresh_project_libraries(self, library_list):
         # process the refresh parameter for the provided list of libraries
@@ -429,9 +435,12 @@ class DeftPascalToolChain:
             f.write(temp_name)
             print("including '{0}' as '{1}'".format(self._get_source_file_name_from_arguments(), temp_name))
             for filename in dependency_list:
-                temp_name = particle.format(filename)
-                f.write(temp_name)
-                print("including '{0}' as '{1}'".format(filename, temp_name))
+                if ".PAS" in filename:
+                    print("... skipping source '{0}'".format(lib_file))
+                else:
+                    temp_name = particle.format(filename)
+                    f.write(temp_name)
+                    print("including '{0}' as '{1}'".format(filename, temp_name))
 
     def list_files_present_in_project_folder(self):
         # Execute a call to the operating system to get the list of files on the project folder
