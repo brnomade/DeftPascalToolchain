@@ -327,9 +327,16 @@ class DeftPascalToolChain:
             # while lines[index].startswith("%"):
             # if "%C" in lines[index]:
             if line.startswith("%C"):
-                print("found in line {0}".format(line))
-                library = line.split("%C")[1].split("/")[0]
-                extension = line.split("%C")[1].split("/")[1].split(":")[0]
+                print("found '{0}'".format(line))
+                if "/" in line:
+                    library = line.split("%C")[1].split("/")[0]
+                    if ":" in line:
+                        extension = line.split("%C")[1].split("/")[1].split(":")[0]
+                    else:
+                        extension = line.split("%C")[1].split("/")[1]
+                else:
+                    library = line.split("%C")[1]
+                    extension = "PAS"
                 import_list.append(library + "." + extension)
                 print(library, extension)
             # index = index + 1
