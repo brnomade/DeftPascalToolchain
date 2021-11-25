@@ -52,6 +52,7 @@ if __name__ == '__main__':
 	parser.add_argument("--emulator_folder", required=True, help="Folder name where mame emulator is installed.")
 	parser.add_argument("--emulator_app", required=True, help="mame emulator executable.")
 	parser.add_argument("--emulator_rom", required=True, help="rom to be used.")
+	parser.add_argument("--emulator_ram", required=True, choices=['32', '64', '128'], default="64", help="ram size.")
 	parser.add_argument("--emulator_speed", default=9, help="mame emulator speed.")
 	parser.add_argument("--emulator_delay", default=3, help="mame emulator boot delay.")
 	parser.add_argument("--emulator_extension", required=False, help="extension used on the emulator.")
